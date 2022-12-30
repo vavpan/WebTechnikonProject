@@ -11,7 +11,7 @@ import com.mycompany.webtechnikonproject.model.Repair;
 public interface OwnerService {
 
     
-    void registerNewOwnerDto(PropertyOwnerDto ownerDto);
+    void createPropertyOwner(PropertyOwnerDto ownerDto);
     
     RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
     

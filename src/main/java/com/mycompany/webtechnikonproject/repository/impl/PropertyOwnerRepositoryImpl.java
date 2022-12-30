@@ -6,6 +6,7 @@ import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -111,5 +112,19 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         List<PropertyOwner> results = JpaUtil.getEntityManager().createQuery(sqlCommands.getProperty("select.owners"))
                 .getResultList();
         return results;
+    }
+
+    @Override
+    @Transactional
+    public void createPropertyOwner(PropertyOwner propertyOwner) {
+        entityManager.persist(propertyOwner);
+    }
+
+    @Override
+    @Transactional
+    public PropertyOwner findById(int id) {
+        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+
+        return propertyOwner;
     }
 }

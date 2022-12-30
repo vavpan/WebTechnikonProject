@@ -184,13 +184,13 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void registerNewOwnerDto(PropertyOwnerDto ownerDto) {
-        propertyOwnerRepository.create(ownerDto.asOwner());
+    public void createPropertyOwner(PropertyOwnerDto ownerDto) {
+        propertyOwnerRepository.createPropertyOwner(ownerDto.asOwner());
     }
 
     @Override
     public RestApiResult<PropertyOwnerDto> getOwner(int ownerId) {
-        PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.search(ownerId));
+        PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findById(ownerId));
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
     }
 

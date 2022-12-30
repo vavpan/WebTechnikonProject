@@ -33,6 +33,9 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
 
+
+
+
   
 
     @Override

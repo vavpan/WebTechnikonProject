@@ -36,6 +36,11 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
 
 
 
+    
+ 
+
+
+
     @Override
     public Repair search(int id) {
         return JpaUtil.getEntityManager().find(Repair.class, id);

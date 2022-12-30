@@ -1,25 +1,22 @@
 package com.mycompany.webtechnikonproject.report;
-
-//package com.team04.technikon.report;
 //
-//import com.team04.technikon.dto.Report;
-//import com.team04.technikon.enums.PropertyType;
-//import com.team04.technikon.model.Property;
-//import com.team04.technikon.model.PropertyOwner;
-//import com.team04.technikon.model.Repair;
-//import com.team04.technikon.repository.PropertyOwnerRepository;
-//import com.team04.technikon.repository.PropertyRepository;
-//import com.team04.technikon.repository.RepairRepository;
-//import com.team04.technikon.repository.impl.PropertyOwnerRepositoryImpl;
-//import com.team04.technikon.repository.impl.PropertyRepositoryImpl;
-//import com.team04.technikon.repository.impl.RepairRepositoryImpl;
-//import com.team04.technikon.services.AdminService;
-//import com.team04.technikon.services.IoServices;
-//import com.team04.technikon.services.OwnerService;
-//import com.team04.technikon.services.impl.AdminServiceImpl;
-//import com.team04.technikon.services.impl.IoServiceImpl;
-//import com.team04.technikon.services.impl.OwnerServiceImpl;
-//import com.team04.technikon.util.JpaUtil;
+//
+//
+//import com.mycompany.webtechnikonproject.dto.Report;
+//import com.mycompany.webtechnikonproject.enums.PropertyType;
+//import com.mycompany.webtechnikonproject.model.Property;
+//import com.mycompany.webtechnikonproject.model.PropertyOwner;
+//import com.mycompany.webtechnikonproject.model.Repair;
+//import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
+//import com.mycompany.webtechnikonproject.repository.PropertyRepository;
+//import com.mycompany.webtechnikonproject.repository.RepairRepository;
+//import com.mycompany.webtechnikonproject.repository.impl.PropertyOwnerRepositoryImpl;
+//import com.mycompany.webtechnikonproject.repository.impl.PropertyRepositoryImpl;
+//import com.mycompany.webtechnikonproject.repository.impl.RepairRepositoryImpl;
+//import com.mycompany.webtechnikonproject.services.IoServices;
+//import com.mycompany.webtechnikonproject.services.impl.IoServiceImpl;
+//import com.mycompany.webtechnikonproject.util.JpaUtil;
+//
 //import java.time.LocalDate;
 //import java.util.List;
 //import java.util.Scanner;
@@ -127,12 +124,12 @@ package com.mycompany.webtechnikonproject.report;
 //    repairRepository.updateWorkDescription(19, "Work recently started");
 //    repairRepository.updateWorkDescription(20, "Fixed");
 //  }
-//
-//  /**
-//   * Method for repair registration, a property-owner is selected, and the
-//   * corresponding properties are displayed. For a particular property a repair
-//   * is registered.
-//   */
+
+  /**
+   * Method for repair registration, a property-owner is selected, and the
+   * corresponding properties are displayed. For a particular property a repair
+   * is registered.
+   */
 //  public static void useCaseThree() {
 //    PropertyRepository propertyRepository = new PropertyRepositoryImpl(JpaUtil.getEntityManager());
 //    PropertyOwnerRepository propertyOwnerRepository = new PropertyOwnerRepositoryImpl(JpaUtil.getEntityManager());

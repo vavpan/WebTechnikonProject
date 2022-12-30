@@ -4,18 +4,16 @@
  */
 package com.mycompany.webtechnikonproject.dto;
 
+import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
-
-
-
+import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
 public class PropertyOwnerDto {
-  
-  
+
     private int vat;
     private String name;
     private String surname;
@@ -54,9 +52,6 @@ public class PropertyOwnerDto {
         return propertyOwner;
 
     }
-
-
-    
 
     public int getVat() {
         return vat;

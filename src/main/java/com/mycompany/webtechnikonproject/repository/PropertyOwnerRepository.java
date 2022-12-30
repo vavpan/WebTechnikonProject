@@ -20,5 +20,12 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
   List<PropertyOwner> read(String ownerName);
 
   List<PropertyOwner> readAll();
+  
+  void createPropertyOwner(PropertyOwner propertyOwner);
+  
+  
+  PropertyOwner findById(int id);
+  
+  
 
 }
