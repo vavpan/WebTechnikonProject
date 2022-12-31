@@ -81,6 +81,7 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         List<Property> propertyList = entityManager.createQuery("select p from property p where p.owner.id=:ownerId", Property.class)
                 .setParameter("ownerId", id).getResultList();

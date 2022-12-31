@@ -1,16 +1,12 @@
-package com.mycompany.webtechnikonproject.report;
-
-//package com.team04.technikon.report;
+//package com.mycompany.webtechnikonproject.report;
 //
-//import com.team04.technikon.repository.PropertyOwnerRepository;
-//import com.team04.technikon.repository.PropertyRepository;
-//import com.team04.technikon.repository.RepairRepository;
-//import com.team04.technikon.repository.impl.PropertyOwnerRepositoryImpl;
-//import com.team04.technikon.repository.impl.PropertyRepositoryImpl;
-//import com.team04.technikon.repository.impl.RepairRepositoryImpl;
-//import com.team04.technikon.services.OwnerService;
-//import com.team04.technikon.services.impl.OwnerServiceImpl;
-//import com.team04.technikon.util.JpaUtil;
+//
+//import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
+//import com.mycompany.webtechnikonproject.repository.PropertyRepository;
+//import com.mycompany.webtechnikonproject.repository.RepairRepository;
+//import com.mycompany.webtechnikonproject.repository.impl.RepairRepositoryImpl;
+//import com.mycompany.webtechnikonproject.services.OwnerService;
+//import com.mycompany.webtechnikonproject.util.JpaUtil;
 //import java.util.Scanner;
 //
 //public class Menu {

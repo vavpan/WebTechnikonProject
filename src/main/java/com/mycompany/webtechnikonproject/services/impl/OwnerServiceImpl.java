@@ -29,6 +29,7 @@ import jakarta.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 public class OwnerServiceImpl implements OwnerService {
 
     private final Properties sqlCommands = new Properties();

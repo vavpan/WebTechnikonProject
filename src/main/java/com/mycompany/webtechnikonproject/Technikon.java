@@ -1,6 +1,6 @@
-//package com.team04.technikon;
+//package com.mycompany.webtechnikonproject;
 //
-//import com.team04.technikon.report.Menu;
+//
 //
 //public class Technikon {
 //

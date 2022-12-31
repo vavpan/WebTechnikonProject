@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Entity(name = "propertyowner")
 @Table
 public class PropertyOwner extends PersistentClass {
-
-  private int vat;
+  // id is in PersistenceClass
+  private int vat; 
   private String name;
   private String surname;
   private String address;

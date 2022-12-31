@@ -6,6 +6,7 @@ import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.services.AdminService;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.enterprise.inject.Default;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import java.io.IOError;
@@ -17,6 +18,7 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import jakarta.inject.Inject;
+
 
 public class AdminServiceImpl implements AdminService {
 
