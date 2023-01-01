@@ -25,13 +25,12 @@ import java.util.Properties;
 import java.util.Scanner;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.ejb.Stateless;
-import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-import static java.lang.Math.log;
+
 import java.util.ArrayList;
-import lombok.NoArgsConstructor;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -211,6 +210,16 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public void registerNewPropertyDto(PropertyDto propertyDto) {
         propertyRepository.create(propertyDto.asProperty());
+    }
+
+    @Override
+    public boolean deletePropertyOwner(int ownerId) {
+        return propertyOwnerRepository.delete(ownerId);
+    }
+
+    @Override
+    public boolean deleteRepair(int repairId) {
+        return repairRepository.delete(repairId);
     }
 
     @Override

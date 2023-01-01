@@ -7,11 +7,7 @@ package com.mycompany.webtechnikonproject.resources;
 import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -33,6 +29,15 @@ public class RepairResource {
     @Consumes("application/json")
     public void createNewRepair(RepairDto repair){
         ownerService.createRepair(repair);
+    }
+
+
+    @DELETE
+    @Path("repair/{repairId}")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public boolean deleteRepair(@PathParam("repairId") int repairId){
+        return ownerService.deleteRepair(repairId);
     }
 
 }

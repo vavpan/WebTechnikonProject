@@ -7,16 +7,13 @@ package com.mycompany.webtechnikonproject.resources;
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.inject.Qualifier;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  *
@@ -30,6 +27,8 @@ public class PropertyResource {
     @Inject
     private OwnerService ownerService;
 
+
+
     @POST
     @Path("property")
     @Produces("application/json")
@@ -39,7 +38,7 @@ public class PropertyResource {
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("property/{id}")
     @Consumes("application/json")
     public void deleteProperty(@PathParam("id") int id) {
         ownerService.deleteProperty(id);

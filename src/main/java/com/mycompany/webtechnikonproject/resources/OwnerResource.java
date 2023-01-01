@@ -4,12 +4,7 @@ import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -36,6 +31,14 @@ public class OwnerResource {
     public void createNewOwner(PropertyOwnerDto owner) {
         ownerService.createPropertyOwner(owner);
 
+    }
+
+    @DELETE
+    @Path("owner/{ownerId}")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public boolean deleteOwner(@PathParam("ownerId") int ownerId){
+         return ownerService.deletePropertyOwner(ownerId);
     }
 
 }
