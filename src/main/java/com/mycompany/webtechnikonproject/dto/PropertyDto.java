@@ -6,6 +6,7 @@ package com.mycompany.webtechnikonproject.dto;
 
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.model.Property;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

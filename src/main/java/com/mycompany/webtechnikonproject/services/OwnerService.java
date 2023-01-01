@@ -2,11 +2,15 @@ package com.mycompany.webtechnikonproject.services;
 
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
+import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.exceptions.PropertyException;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
+import jakarta.ejb.Stateless;
+import java.util.List;
+
 
 public interface OwnerService {
 
@@ -14,6 +18,8 @@ public interface OwnerService {
     void createPropertyOwner(PropertyOwnerDto ownerDto);
     
     RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
+    
+    List<RepairDto> getAll();
     
     /**
      * This method registers a new Owner that got inserted in the console.
@@ -91,5 +97,7 @@ public interface OwnerService {
      * @param repair
      */
     void declineRepair(Repair repair);
+    
+    void deleteProperty(int id);
 
 }

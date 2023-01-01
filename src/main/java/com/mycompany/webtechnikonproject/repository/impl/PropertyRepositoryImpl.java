@@ -36,6 +36,7 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
 
 
 
+
   
 
     @Override

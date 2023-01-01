@@ -2,6 +2,7 @@ package com.mycompany.webtechnikonproject.services.impl;
 
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
+import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
@@ -23,13 +24,18 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.ejb.Stateless;
+import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
+import static java.lang.Math.log;
+import java.util.ArrayList;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+@Stateless
 public class OwnerServiceImpl implements OwnerService {
 
     private final Properties sqlCommands = new Properties();
@@ -52,6 +58,13 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Inject
     private RepairRepository repairRepository;
+
+
+
+ 
+    
+    
+    
 
     @Override
     public PropertyOwner getOwnerFromConsole() {
@@ -198,5 +211,23 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public void registerNewPropertyDto(PropertyDto propertyDto) {
         propertyRepository.create(propertyDto.asProperty());
+    }
+
+    @Override
+    public void deleteProperty(int id) {
+        propertyRepository.delete(id);
+    }
+
+    @Override
+    public List<RepairDto> getAll() {
+      List<Repair> allRepairList = repairRepository.readAll();
+        if (allRepairList.isEmpty()) {
+            System.out.println("No repairs in database");
+        }
+         List<RepairDto> repairDtoList = new ArrayList<>();
+        for (Repair repair : allRepairList) {
+            repairDtoList.add(new RepairDto(repair));
+        }
+        return repairDtoList;
     }
 }

@@ -6,6 +6,7 @@ import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.enterprise.inject.Default;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.IOError;
@@ -14,8 +15,10 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements RepairRepository {
 
@@ -33,11 +36,6 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
-
-
-
-    
- 
 
 
 

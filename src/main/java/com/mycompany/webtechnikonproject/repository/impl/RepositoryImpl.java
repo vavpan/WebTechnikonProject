@@ -5,8 +5,9 @@ import com.mycompany.webtechnikonproject.repository.Repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import java.io.Serializable;
 
-public class RepositoryImpl<T extends PersistentClass> implements Repository<T> {
+public class RepositoryImpl<T extends PersistentClass> implements Repository<T>{
     
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;

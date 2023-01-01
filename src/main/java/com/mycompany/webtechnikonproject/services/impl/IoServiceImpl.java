@@ -9,6 +9,7 @@ import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.services.IoServices;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import java.io.*;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@Stateless
 public class IoServiceImpl implements IoServices {
 
     private static final Logger logger = LogManager.getLogger(IoServiceImpl.class);

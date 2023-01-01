@@ -4,6 +4,7 @@ import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.enterprise.inject.Default;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,9 @@ import java.util.List;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> implements PropertyOwnerRepository {
 
@@ -31,6 +35,10 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
+
+
+    
+    
 
     @Override
     public PropertyOwner search(int id) {

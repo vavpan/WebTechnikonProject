@@ -4,7 +4,10 @@
  */
 package com.mycompany.webtechnikonproject.dto;
 
+import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
+import java.util.List;
+import java.util.Properties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
