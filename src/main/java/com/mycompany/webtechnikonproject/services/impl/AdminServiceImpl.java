@@ -6,7 +6,6 @@ import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.services.AdminService;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
-import jakarta.ejb.Stateless;
 import jakarta.enterprise.inject.Default;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
@@ -19,9 +18,8 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import jakarta.inject.Inject;
-import lombok.NoArgsConstructor;
 
-@Stateless
+
 public class AdminServiceImpl implements AdminService {
 
     private static final Logger logger = LogManager.getLogger(AdminServiceImpl.class);
