@@ -230,4 +230,9 @@ public class OwnerServiceImpl implements OwnerService {
         }
         return repairDtoList;
     }
+
+    @Override
+    public void createRepair(RepairDto repair) {
+        repairRepository.create(repair.asRepair());
+    }
 }

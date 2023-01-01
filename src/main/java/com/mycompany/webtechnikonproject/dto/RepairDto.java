@@ -19,20 +19,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RepairDto {
 
-    private int id;
+
     private RepairType repairType;
     private String repairDescription;
     private LocalDate submissionDate;
-    private String workDescription;   
+    private String workDescription;
     private LocalDate startDate;
     private LocalDate endDate;
     private double cost;
+    private boolean acceptance;
     private RepairStatus repairStatus;
     private LocalDate actualStartDate;
     private LocalDate actualEndDate;
+    private PropertyDto property;
 
     public RepairDto(Repair repair) {
-        this.id = repair.getId();
+ 
         this.repairType = repair.getRepairType();
         this.repairDescription = repair.getRepairDescription();
         this.submissionDate = repair.getSubmissionDate();
@@ -47,7 +49,6 @@ public class RepairDto {
 
     public Repair asRepair() {
         Repair repair = new Repair();
-        repair.setId(id);
         repair.setRepairType(repairType);
         repair.setRepairDescription(repairDescription);
         repair.setSubmissionDate(submissionDate);

@@ -13,18 +13,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 @Path("ownerResource")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OwnerResource {
-
-    @GET
-    public Response ping() {
-        return Response
-                .ok("pang")
-                .build();
-    }
 
     @Inject
     private OwnerService ownerService;

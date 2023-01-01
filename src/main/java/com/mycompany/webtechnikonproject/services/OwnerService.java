@@ -11,16 +11,16 @@ import com.mycompany.webtechnikonproject.model.Repair;
 import jakarta.ejb.Stateless;
 import java.util.List;
 
-
 public interface OwnerService {
 
-    
     void createPropertyOwner(PropertyOwnerDto ownerDto);
-    
+
     RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
-    
+
+    void createRepair(RepairDto repair);
+
     List<RepairDto> getAll();
-    
+
     /**
      * This method registers a new Owner that got inserted in the console.
      */
@@ -32,9 +32,8 @@ public interface OwnerService {
      *
      * @param propertyOwner
      */
-    
     void registerNewPropertyDto(PropertyDto propertyDto);
-    
+
     void registerNewProperty(PropertyOwner propertyOwner);
 
     /**
@@ -97,7 +96,7 @@ public interface OwnerService {
      * @param repair
      */
     void declineRepair(Repair repair);
-    
+
     void deleteProperty(int id);
 
 }

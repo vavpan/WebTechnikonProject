@@ -29,14 +29,6 @@ public class PropertyResource {
 
     @Inject
     private OwnerService ownerService;
-    
-   
-    @GET
-    public Response ping() {
-        return Response
-                .ok("propertypang")
-                .build();
-    }
 
     @POST
     @Path("property")
@@ -49,10 +41,8 @@ public class PropertyResource {
     @DELETE
     @Path("/{id}")
     @Consumes("application/json")
-    public void deleteProperty(@PathParam("id") int id){
+    public void deleteProperty(@PathParam("id") int id) {
         ownerService.deleteProperty(id);
     }
-
-
 
 }
