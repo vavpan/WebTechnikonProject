@@ -252,15 +252,16 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public List<PropertyDto> getAllProperties() {
-        List<PropertyDto> propertyDtoList = new ArrayList<>();
-        List<Property> allPropertyList = propertyRepository.findAll();
-        if (allPropertyList.isEmpty()) {
-            System.out.println("Database is empty");
-        }
-        for (Property property : allPropertyList) {
-            propertyDtoList.add(new PropertyDto(property));
-        }
-        return propertyDtoList;
+//        List<PropertyDto> propertyDtoList = new ArrayList<>();
+//        List<Property> allPropertyList = propertyRepository.findAll();
+//        if (allPropertyList.isEmpty()) {
+//            System.out.println("Database is empty");
+//        }
+//        for (Property property : allPropertyList) {
+//            propertyDtoList.add(new PropertyDto(property));
+//        }
+//        return propertyDtoList;
+        return null;
     }
 
 //    @Override

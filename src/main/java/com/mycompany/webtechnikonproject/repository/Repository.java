@@ -9,5 +9,5 @@ public interface Repository<T extends PersistentClass> {
 
     List<T> findAll();
 
-//    boolean deleteEntity(int id);
+    boolean deleteEntity(int id);
 }
