@@ -57,10 +57,10 @@ public class PropertyResource {
         ownerService.deleteProperty(id);
     }
     
-//    @DELETE
-//    @Path("properties")
-//    public void deleteAll(){
-//        ownerService.deleteAllProperties();
-//    }
+    @DELETE
+    @Path("properties")
+    public void deleteAll(){
+        ownerService.deleteAllProperties();
+    }
 
 }

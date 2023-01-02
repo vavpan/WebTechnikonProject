@@ -154,5 +154,18 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         return PropertyOwner.class;
     }
 
+    @Override
+    public void copyValues(PropertyOwner tSource, PropertyOwner tTarget) {
+        tTarget.setName(tSource.getName());
+        tTarget.setAddress(tSource.getAddress());
+        tTarget.setEmail(tSource.getEmail());
+        tTarget.setId(tSource.getId());
+        tTarget.setPassword(tSource.getPassword());
+        tTarget.setPhoneNumber(tSource.getPhoneNumber());
+        tTarget.setProperties(tSource.getProperties());
+        tTarget.setSurname(tSource.getSurname());
+        tTarget.setUsername(tSource.getUsername());
+        tTarget.setVat(tSource.getVat());
+    }
 
 }

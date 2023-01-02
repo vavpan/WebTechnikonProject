@@ -47,8 +47,7 @@ public class RepairResource {
     }
 
     @DELETE
-    @Path("/repair/{repairId}")
-    @Produces("application/json")
+    @Path("repair/{repairId}")
     @Consumes("application/json")
     public boolean deleteRepair(@PathParam("repairId") int repairId) {
         return ownerService.deleteRepair(repairId);

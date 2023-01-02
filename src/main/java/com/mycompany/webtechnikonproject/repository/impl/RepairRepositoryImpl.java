@@ -251,6 +251,27 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         return repair;
 
     }
+
+    @Override
+    public void copyValues(Repair tSource, Repair tTarget) {
+        tTarget.setCost(tSource.getCost());
+        tTarget.setWorkDescription(tSource.getWorkDescription());
+        tTarget.setProperty(tSource.getProperty());
+        tTarget.setActualEndDate(tSource.getActualStartDate());
+        tTarget.setRepairDescription(tSource.getRepairDescription());
+        tTarget.setRepairStatus(tSource.getRepairStatus());
+        tTarget.setRepairType(tSource.getRepairType());
+    }
+
+    @Override
+    public boolean deleteRepair(int id) {
+
+        Repair repair = entityManager.find(Repair.class, id);
+        if (repair == null) {
+            return false;
+        }
+        entityManager.remove(repair);
+        return true;
+    }
+
 }
-
-

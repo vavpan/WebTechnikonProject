@@ -173,5 +173,13 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
         return Property.class;
     }
 
-  
+    @Override
+    public void copyValues(Property tSource, Property tTarget) {
+        tTarget.setAddress(tSource.getAddress());
+        tTarget.setOwner(tSource.getOwner());
+        tTarget.setId(tSource.getId());
+        tTarget.setPropertyType(tSource.getPropertyType());
+        tTarget.setYearOfConstruction(tSource.getYearOfConstruction());
+    }
+
 }

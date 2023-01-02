@@ -30,6 +30,7 @@ import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -224,7 +225,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean deleteRepair(int repairId) {
-        return repairRepository.delete(repairId);
+        return repairRepository.deleteRepair(repairId);
     }
 
     @Override
@@ -252,33 +253,40 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public List<PropertyDto> getAllProperties() {
-//        List<PropertyDto> propertyDtoList = new ArrayList<>();
-//        List<Property> allPropertyList = propertyRepository.findAll();
-//        if (allPropertyList.isEmpty()) {
-//            System.out.println("Database is empty");
-//        }
-//        for (Property property : allPropertyList) {
-//            propertyDtoList.add(new PropertyDto(property));
-//        }
-//        return propertyDtoList;
-        return null;
+        List<PropertyDto> propertyDtoList = new ArrayList<>();
+        List<Property> allPropertyList = propertyRepository.findAll();
+        if (allPropertyList.isEmpty()) {
+            System.out.println("Database is empty");
+        }
+        for (Property property : allPropertyList) {
+            propertyDtoList.add(new PropertyDto(property));
+        }
+        return propertyDtoList;
+     
     }
 
-//    @Override
-//    public void deleteAllProperties() {
-//        try {
-//            List<Property> propertyList = propertyRepository.findAll();
-//            if (!propertyList.isEmpty()) {
-//                List<Repair> repairlist = repairRepository.findAll();
-//                if (!repairlist.isEmpty()) {
-//                    repairlist.stream().forEach(r -> repairRepository.deleteEntity(r.getId()));
-//                }
-//                propertyList.stream().forEach(p -> deleteProperty(p.getId()));
-//            } else {
-//                System.out.println("No properties in database");
-//            }
-//        } catch (NullPointerException e) {
-//            System.out.println("No properties in database");
-//        }
-//    }
+    @Override
+    public void deleteAllProperties() {
+        try {
+            List<Property> propertyList = propertyRepository.findAll();
+            if (!propertyList.isEmpty()) {
+                List<Repair> repairlist = repairRepository.findAll();
+                if (!repairlist.isEmpty()) {
+                    repairlist.stream().forEach(r -> repairRepository.deleteEntity(r.getId()));
+                }
+                propertyList.stream().forEach(p -> deleteProperty(p.getId()));
+            } else {
+                System.out.println("No properties in database");
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No properties in database");
+        }
+    }
+
+    @Override
+    public PropertyOwnerDto update(PropertyOwnerDto propertyOwnerDto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
 }

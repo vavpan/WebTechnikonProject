@@ -42,4 +42,6 @@ public interface RepairRepository extends Repository<Repair> {
 
     Repair findById(int id);
 
+    boolean deleteRepair(int id);
+
 }

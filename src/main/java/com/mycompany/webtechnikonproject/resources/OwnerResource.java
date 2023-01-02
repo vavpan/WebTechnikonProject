@@ -22,7 +22,14 @@ public class OwnerResource {
         return ownerService.getOwner(ownerId);
 
     }
-    
+
+    @PUT
+    @Path("owner")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public void updateOwner(PropertyOwnerDto ownerDto){
+        
+    }
 
     @POST
     @Path("owner")
@@ -37,8 +44,8 @@ public class OwnerResource {
     @Path("owner/{ownerId}")
     @Produces("application/json")
     @Consumes("application/json")
-    public boolean deleteOwner(@PathParam("ownerId") int ownerId){
-         return ownerService.deletePropertyOwner(ownerId);
+    public boolean deleteOwner(@PathParam("ownerId") int ownerId) {
+        return ownerService.deletePropertyOwner(ownerId);
     }
 
 }

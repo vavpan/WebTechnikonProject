@@ -105,9 +105,12 @@ public interface OwnerService {
 
     boolean deletePropertyOwner(int ownerId);
 
-//    void deleteAllProperties();
+    void deleteAllProperties();
+
     boolean deleteRepair(int repairId);
 
     List<PropertyDto> getAllProperties();
+
+    PropertyOwnerDto update(PropertyOwnerDto propertyOwnerDto);
 
 }
