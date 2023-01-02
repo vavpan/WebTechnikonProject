@@ -58,13 +58,6 @@ public class OwnerServiceImpl implements OwnerService {
     @Inject
     private RepairRepository repairRepository;
 
-
-
- 
-    
-    
-    
-
     @Override
     public PropertyOwner getOwnerFromConsole() {
         PropertyOwner propertyOwner = new PropertyOwner();
@@ -208,13 +201,25 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public RestApiResult<PropertyDto> getProperty(int propertyId) {
+        PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
+        return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
+    }
+
+    @Override
+    public RestApiResult<RepairDto> getRepair(int repairId) {
+        RepairDto repairDto = new RepairDto(repairRepository.findById(repairId));
+        return new RestApiResult<RepairDto>(repairDto, 0, "successful");
+    }
+
+    @Override
     public void registerNewPropertyDto(PropertyDto propertyDto) {
         propertyRepository.create(propertyDto.asProperty());
     }
 
     @Override
     public boolean deletePropertyOwner(int ownerId) {
-        return propertyOwnerRepository.delete(ownerId);
+        return propertyOwnerRepository.deleteOwner(ownerId);
     }
 
     @Override
@@ -224,16 +229,16 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public void deleteProperty(int id) {
-        propertyRepository.delete(id);
+        propertyRepository.deleteProperty(id);
     }
 
     @Override
     public List<RepairDto> getAll() {
-      List<Repair> allRepairList = repairRepository.readAll();
+        List<Repair> allRepairList = repairRepository.readAll();
         if (allRepairList.isEmpty()) {
             System.out.println("No repairs in database");
         }
-         List<RepairDto> repairDtoList = new ArrayList<>();
+        List<RepairDto> repairDtoList = new ArrayList<>();
         for (Repair repair : allRepairList) {
             repairDtoList.add(new RepairDto(repair));
         }
@@ -244,4 +249,35 @@ public class OwnerServiceImpl implements OwnerService {
     public void createRepair(RepairDto repair) {
         repairRepository.create(repair.asRepair());
     }
+
+    @Override
+    public List<PropertyDto> getAllProperties() {
+        List<PropertyDto> propertyDtoList = new ArrayList<>();
+        List<Property> allPropertyList = propertyRepository.findAll();
+        if (allPropertyList.isEmpty()) {
+            System.out.println("Database is empty");
+        }
+        for (Property property : allPropertyList) {
+            propertyDtoList.add(new PropertyDto(property));
+        }
+        return propertyDtoList;
+    }
+
+//    @Override
+//    public void deleteAllProperties() {
+//        try {
+//            List<Property> propertyList = propertyRepository.findAll();
+//            if (!propertyList.isEmpty()) {
+//                List<Repair> repairlist = repairRepository.findAll();
+//                if (!repairlist.isEmpty()) {
+//                    repairlist.stream().forEach(r -> repairRepository.deleteEntity(r.getId()));
+//                }
+//                propertyList.stream().forEach(p -> deleteProperty(p.getId()));
+//            } else {
+//                System.out.println("No properties in database");
+//            }
+//        } catch (NullPointerException e) {
+//            System.out.println("No properties in database");
+//        }
+//    }
 }

@@ -13,21 +13,6 @@ import java.util.List;
 
 public interface OwnerService {
 
-    void createPropertyOwner(PropertyOwnerDto ownerDto);
-
-
-    void createRepair(RepairDto repair);
-
-    List<RepairDto> getAll();
-
-    RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
-
-    void registerNewPropertyDto(PropertyDto propertyDto);
-
-    boolean deletePropertyOwner(int ownerId);
-
-    boolean deleteRepair(int repairId);
-
     /**
      * This method registers a new Owner that got inserted in the console.
      */
@@ -39,8 +24,6 @@ public interface OwnerService {
      *
      * @param propertyOwner
      */
-
-
     void registerNewProperty(PropertyOwner propertyOwner);
 
     /**
@@ -105,5 +88,27 @@ public interface OwnerService {
     void declineRepair(Repair repair);
 
     void deleteProperty(int id);
+
+    // REST API METHODS
+    void createPropertyOwner(PropertyOwnerDto ownerDto);
+
+    void createRepair(RepairDto repair);
+
+    List<RepairDto> getAll();
+
+    RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
+
+    RestApiResult<PropertyDto> getProperty(int propertyId);
+
+    RestApiResult<RepairDto> getRepair(int repairId);
+
+    void registerNewPropertyDto(PropertyDto propertyDto);
+
+    boolean deletePropertyOwner(int ownerId);
+
+//    void deleteAllProperties();
+    boolean deleteRepair(int repairId);
+
+    List<PropertyDto> getAllProperties();
 
 }

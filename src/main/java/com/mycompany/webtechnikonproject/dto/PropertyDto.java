@@ -33,6 +33,13 @@ public class PropertyDto {
         this.owner = owner;
         this.repairs = repairs;
     }
+   
+    public PropertyDto(Property property) {
+        this.e9 = property.getE9();
+        this.address = property.getAddress();
+        this.yearOfConstruction = property.getYearOfConstruction();
+        this.propertyType = property.getPropertyType();
+    }
 
 
 public Property asProperty() {

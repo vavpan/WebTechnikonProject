@@ -27,5 +27,9 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
   PropertyOwner findById(int id);
   
   
+  
+  // REST API METHODS
+  
+  boolean deleteOwner(int id);
 
 }

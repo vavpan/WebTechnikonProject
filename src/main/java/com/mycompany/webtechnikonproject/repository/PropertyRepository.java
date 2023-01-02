@@ -6,21 +6,25 @@ import java.util.List;
 
 public interface PropertyRepository extends Repository<Property> {
 
-  Property search(int id);
+    Property search(int id);
 
-  List<Property> searchByVat(int vat);
+    List<Property> searchByVat(int vat);
 
-  void updateOwnerVat(int propertyId, int vat);
+    void updateOwnerVat(int propertyId, int vat);
 
-  void updateAddress(int id, String address);
+    void updateAddress(int id, String address);
 
-  void updateYearOfConstruction(int id, String year);
+    void updateYearOfConstruction(int id, String year);
 
-  void updatePropertyType(int id, PropertyType propertyType);
+    void updatePropertyType(int id, PropertyType propertyType);
 
-  boolean delete(int id);
+    boolean delete(int id);
 
-  public void updateOwnerId(int propertyId, int propertyOwnerId);
+    public void updateOwnerId(int propertyId, int propertyOwnerId);
 
-  List<Property> readAll();
+    List<Property> readAll();
+
+    boolean deleteProperty(int id);
+
+    Property findById(int id);
 }

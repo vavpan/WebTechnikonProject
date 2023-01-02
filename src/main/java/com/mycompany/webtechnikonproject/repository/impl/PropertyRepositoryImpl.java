@@ -8,6 +8,7 @@ import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,11 +34,10 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
 
-
-
-
-
-  
+    @Override
+    public String getClassName() {
+        return Property.class.getName();
+    }
 
     @Override
     public Property search(int id) {
@@ -149,4 +149,29 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
                 .getResultList();
         return results;
     }
+
+    @Override
+    public boolean deleteProperty(int id) {
+        Property property = entityManager.find(Property.class, id);
+        if (property == null) {
+            return false;
+        }
+        entityManager.remove(property);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Property findById(int id) {
+        Property property = entityManager.find(Property.class, id);
+        return property;
+
+    }
+
+    @Override
+    public Class<Property> getClassType() {
+        return Property.class;
+    }
+
+  
 }

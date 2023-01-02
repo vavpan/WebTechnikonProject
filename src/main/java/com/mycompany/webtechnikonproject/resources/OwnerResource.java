@@ -6,7 +6,6 @@ import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @Path("ownerResource")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,6 +22,7 @@ public class OwnerResource {
         return ownerService.getOwner(ownerId);
 
     }
+    
 
     @POST
     @Path("owner")

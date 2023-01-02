@@ -5,6 +5,7 @@
 package com.mycompany.webtechnikonproject.resources;
 
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
+import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.inject.Qualifier;
@@ -27,7 +28,19 @@ public class PropertyResource {
     @Inject
     private OwnerService ownerService;
 
+    @GET
+    @Path("properties")
+    @Produces("application/json")
+    public void getAll() {
+        ownerService.getAllProperties();
+    }
 
+    @GET
+    @Path("/property/{propertyId}")
+    @Produces("application/json")
+    public RestApiResult<PropertyDto> getProperty(@PathParam("propertyId") int propertyId) {
+        return ownerService.getProperty(propertyId);
+    }
 
     @POST
     @Path("property")
@@ -43,5 +56,11 @@ public class PropertyResource {
     public void deleteProperty(@PathParam("id") int id) {
         ownerService.deleteProperty(id);
     }
+    
+//    @DELETE
+//    @Path("properties")
+//    public void deleteAll(){
+//        ownerService.deleteAllProperties();
+//    }
 
 }

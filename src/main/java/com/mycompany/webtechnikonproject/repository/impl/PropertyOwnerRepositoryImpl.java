@@ -20,8 +20,6 @@ import org.apache.logging.log4j.Logger;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> implements PropertyOwnerRepository {
 
     private static final Logger logger = LogManager.getLogger(PropertyOwnerRepositoryImpl.class);
@@ -39,9 +37,10 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
 
-
-    
-    
+    @Override
+    public String getClassName() {
+        return PropertyOwner.class.getName();
+    }
 
     @Override
     public PropertyOwner search(int id) {
@@ -139,4 +138,21 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
 
         return propertyOwner;
     }
+
+    @Override
+    public boolean deleteOwner(int id) {
+        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+        if (propertyOwner == null) {
+            return false;
+        }
+        entityManager.remove(propertyOwner);
+        return true;
+    }
+
+    @Override
+    public Class<PropertyOwner> getClassType() {
+        return PropertyOwner.class;
+    }
+
+
 }
