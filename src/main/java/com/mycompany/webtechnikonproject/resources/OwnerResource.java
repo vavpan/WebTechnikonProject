@@ -26,7 +26,7 @@ public class OwnerResource {
     @GET
     @Path("owner/vat/{vat}")
     @Produces("application/json")
-    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("vat") int vat) {
+    public RestApiResult<PropertyOwnerDto> getOwnerByVat(@PathParam("vat") int vat) {
         return ownerService.getOwnerByVat(vat);
 
     }
