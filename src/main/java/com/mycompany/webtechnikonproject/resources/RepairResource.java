@@ -23,12 +23,6 @@ public class RepairResource {
     @Inject
     private OwnerService ownerService;
 
-    @GET
-    @Path("repairs")
-    @Produces("application/json")
-    public void getAll() {
-        ownerService.getAll();
-    }
 
     @GET
     @Path("repair/{repairId}")

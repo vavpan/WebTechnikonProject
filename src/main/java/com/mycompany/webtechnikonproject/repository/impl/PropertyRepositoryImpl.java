@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.Properties;
 
+
 public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements PropertyRepository {
 
     private static final Logger logger = LogManager.getLogger(PropertyRepositoryImpl.class);
@@ -33,6 +34,9 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
+
+
+ 
 
     @Override
     public String getClassName() {

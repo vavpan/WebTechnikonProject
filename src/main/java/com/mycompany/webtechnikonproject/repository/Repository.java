@@ -15,4 +15,5 @@ public interface Repository<T extends PersistentClass> {
     boolean deleteEntity(int id);
 
     Optional<T> update(int id, T t);
+
 }

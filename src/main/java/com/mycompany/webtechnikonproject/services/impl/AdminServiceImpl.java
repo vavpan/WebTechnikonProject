@@ -1,5 +1,8 @@
 package com.mycompany.webtechnikonproject.services.impl;
 
+import com.mycompany.webtechnikonproject.dto.RepairDto;
+import com.mycompany.webtechnikonproject.dto.RestApiResult;
+import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
@@ -18,7 +21,8 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import jakarta.inject.Inject;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -33,6 +37,9 @@ public class AdminServiceImpl implements AdminService {
     @Inject
     private RepairRepository repairRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final Properties sqlCommands = new Properties();
 
     {
@@ -43,7 +50,6 @@ public class AdminServiceImpl implements AdminService {
             throw new IOError(e);
         }
     }
-
 
     @Override
     public void displayPendingRepairs() {
@@ -63,6 +69,8 @@ public class AdminServiceImpl implements AdminService {
                 + "| Actual start date: " + tuple.get(4)
                 + "| Actual end date: " + tuple.get(3)));
     }
+
+
 
     @Override
     public void proposeCosts(Repair repair, double cost) {
@@ -95,4 +103,5 @@ public class AdminServiceImpl implements AdminService {
                 + "| Actual start date: " + tuple.get(1)
                 + "| Actual end date: " + tuple.get(2)));
     }
+
 }

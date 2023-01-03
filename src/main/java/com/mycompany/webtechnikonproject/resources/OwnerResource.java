@@ -23,6 +23,22 @@ public class OwnerResource {
 
     }
 
+    @GET
+    @Path("owner/vat/{vat}")
+    @Produces("application/json")
+    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("vat") int vat) {
+        return ownerService.getOwnerByVat(vat);
+
+    }
+    
+      @GET
+    @Path("owner/email/{email}")
+    @Produces("application/json")
+    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("email") String email) {
+        return ownerService.getOwnerByEmail(email);
+
+    }
+
     @PUT
     @Path("owner/{ownerId}")
     @Consumes("application/json")

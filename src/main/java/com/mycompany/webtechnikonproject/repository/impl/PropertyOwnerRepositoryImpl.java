@@ -4,21 +4,17 @@ import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
-import jakarta.enterprise.inject.Default;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> implements PropertyOwnerRepository {
 
@@ -137,6 +133,21 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
 
         return propertyOwner;
+    }
+
+    @Override
+    @Transactional
+    public PropertyOwner findByVat(int vat) {
+        TypedQuery<PropertyOwner> query = entityManager.createQuery("SELECT p from propertyowner p where p.vat =:vat", PropertyOwner.class);
+        query.setParameter("vat", vat);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public PropertyOwner findByEmail(String email) {
+        TypedQuery<PropertyOwner> query = entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.email = :email", PropertyOwner.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
     }
 
     @Override

@@ -93,9 +93,11 @@ public interface OwnerService {
 
     void createRepair(RepairDto repair);
 
-    List<RepairDto> getAll();
-
     RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
+
+    RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat);
+
+    RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email);
 
     RestApiResult<PropertyDto> getProperty(int propertyId);
 
@@ -105,11 +107,7 @@ public interface OwnerService {
 
     boolean deletePropertyOwner(int ownerId);
 
-    void deleteAllProperties();
-
     boolean deleteRepair(int repairId);
-
-    List<Property> getAllProperties();
 
     RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id);
 

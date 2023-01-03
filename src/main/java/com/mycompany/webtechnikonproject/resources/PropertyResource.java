@@ -23,11 +23,6 @@ public class PropertyResource {
     @Inject
     private OwnerService ownerService;
 
-    @GET
-    @Produces("application/json")
-    public void getAll() {
-        ownerService.getAllProperties();
-    }
 
     @GET
     @Path("/property/{propertyId}")
@@ -58,10 +53,6 @@ public class PropertyResource {
         return ownerService.deleteProperty(id);
     }
 
-    @DELETE
-    @Path("properties")
-    public void deleteAll() {
-        ownerService.deleteAllProperties();
-    }
+
 
 }

@@ -31,7 +31,9 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.UserTransaction;
 import java.util.ArrayList;
+import javax.naming.InitialContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -205,6 +207,18 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat) {
+        PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByVat(vat));
+        return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+    }
+
+    @Override
+    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email) {
+            PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByEmail(email));
+        return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+    }
+
+    @Override
     public RestApiResult<PropertyDto> getProperty(int propertyId) {
         PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
         return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
@@ -238,47 +252,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public List<RepairDto> getAll() {
-        List<Repair> allRepairList = repairRepository.readAll();
-        if (allRepairList.isEmpty()) {
-            System.out.println("No repairs in database");
-        }
-        List<RepairDto> repairDtoList = new ArrayList<>();
-        for (Repair repair : allRepairList) {
-            repairDtoList.add(new RepairDto(repair));
-        }
-        return repairDtoList;
-    }
-
-    @Override
     public void createRepair(RepairDto repair) {
         repairRepository.create(repair.asRepair());
-    }
-
-    @Override
-    public List<Property> getAllProperties() {
-        TypedQuery<Property> query = entityManager.createQuery("SELECT p FROM property p", Property.class);
-        List<Property> properties = query.getResultList();
-
-        return properties;
-    }
-
-    @Override
-    public void deleteAllProperties() {
-        try {
-            List<Property> propertyList = propertyRepository.findAll();
-            if (!propertyList.isEmpty()) {
-                List<Repair> repairlist = repairRepository.findAll();
-                if (!repairlist.isEmpty()) {
-                    repairlist.stream().forEach(r -> repairRepository.deleteEntity(r.getId()));
-                }
-                propertyList.stream().forEach(p -> deleteProperty(p.getId()));
-            } else {
-                System.out.println("No properties in database");
-            }
-        } catch (NullPointerException e) {
-            System.out.println("No properties in database");
-        }
     }
 
     @Override
