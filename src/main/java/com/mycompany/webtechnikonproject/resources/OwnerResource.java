@@ -24,11 +24,10 @@ public class OwnerResource {
     }
 
     @PUT
-    @Path("owner")
-    @Produces("application/json")
+    @Path("owner/{ownerId}")
     @Consumes("application/json")
-    public void updateOwner(PropertyOwnerDto ownerDto){
-        
+    public RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto ownerDto, @PathParam("ownerId") int ownerId) {
+        return ownerService.updateOwner(ownerDto, ownerId);
     }
 
     @POST

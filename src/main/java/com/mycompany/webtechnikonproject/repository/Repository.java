@@ -9,8 +9,8 @@ public interface Repository<T extends PersistentClass> {
     int create(T t);
 
     List<T> findAll();
-
-
+    
+    Optional<T> findEntityById(int id);
 
     boolean deleteEntity(int id);
 

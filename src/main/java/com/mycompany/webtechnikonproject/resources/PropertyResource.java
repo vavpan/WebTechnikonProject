@@ -8,13 +8,8 @@ import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
-import jakarta.inject.Qualifier;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  *
@@ -29,7 +24,6 @@ public class PropertyResource {
     private OwnerService ownerService;
 
     @GET
-    @Path("properties")
     @Produces("application/json")
     public void getAll() {
         ownerService.getAllProperties();
@@ -40,6 +34,13 @@ public class PropertyResource {
     @Produces("application/json")
     public RestApiResult<PropertyDto> getProperty(@PathParam("propertyId") int propertyId) {
         return ownerService.getProperty(propertyId);
+    }
+
+    @PUT
+    @Path("/property/{propertyId}")
+    @Consumes("application/json")
+    public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, @PathParam("propertyId") int propertyId) {
+        return ownerService.updateProperty(propertyDto, propertyId);
     }
 
     @POST
@@ -53,13 +54,13 @@ public class PropertyResource {
     @DELETE
     @Path("property/{id}")
     @Consumes("application/json")
-    public void deleteProperty(@PathParam("id") int id) {
-        ownerService.deleteProperty(id);
+    public boolean deleteProperty(@PathParam("id") int id) {
+        return ownerService.deleteProperty(id);
     }
-    
+
     @DELETE
     @Path("properties")
-    public void deleteAll(){
+    public void deleteAll() {
         ownerService.deleteAllProperties();
     }
 

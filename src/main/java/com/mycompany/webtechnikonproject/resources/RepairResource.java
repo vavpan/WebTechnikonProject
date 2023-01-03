@@ -10,7 +10,6 @@ import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -36,6 +35,13 @@ public class RepairResource {
     @Produces("application/json")
     public RestApiResult<RepairDto> getRepair(@PathParam("repairId") int repairId) {
         return ownerService.getRepair(repairId);
+    }
+
+    @PUT
+    @Path("repair/{repairId}")
+    @Consumes("application/json")
+    public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, @PathParam("repairId") int repairId) {
+       return ownerService.updateRepair(repairDto, repairId);
     }
 
     @POST

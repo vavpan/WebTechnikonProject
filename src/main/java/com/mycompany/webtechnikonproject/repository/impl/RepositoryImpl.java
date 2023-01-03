@@ -7,10 +7,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T> {
+public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T>, Serializable {
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
@@ -32,6 +33,13 @@ public abstract class RepositoryImpl<T extends PersistentClass> implements Repos
     @Override
     public List<T> findAll() {
         return entityManager.createQuery("from " + getClassName()).getResultList();
+    }
+
+    @Override
+    public Optional<T> findEntityById(int id) {
+        T t = entityManager.find(getClassType(), id);
+
+        return t != null ? Optional.of(t) : Optional.empty();
     }
 
     @Override
@@ -71,7 +79,5 @@ public abstract class RepositoryImpl<T extends PersistentClass> implements Repos
             return Optional.empty();
         }
     }
-
-
 
 }

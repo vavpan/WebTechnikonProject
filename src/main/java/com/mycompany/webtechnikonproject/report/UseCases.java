@@ -1,4 +1,4 @@
-package com.mycompany.webtechnikonproject.report;
+//package com.mycompany.webtechnikonproject.report;
 //
 //
 //
@@ -124,12 +124,12 @@ package com.mycompany.webtechnikonproject.report;
 //    repairRepository.updateWorkDescription(19, "Work recently started");
 //    repairRepository.updateWorkDescription(20, "Fixed");
 //  }
-
-  /**
-   * Method for repair registration, a property-owner is selected, and the
-   * corresponding properties are displayed. For a particular property a repair
-   * is registered.
-   */
+//
+//  /**
+//   * Method for repair registration, a property-owner is selected, and the
+//   * corresponding properties are displayed. For a particular property a repair
+//   * is registered.
+//   */
 //  public static void useCaseThree() {
 //    PropertyRepository propertyRepository = new PropertyRepositoryImpl(JpaUtil.getEntityManager());
 //    PropertyOwnerRepository propertyOwnerRepository = new PropertyOwnerRepositoryImpl(JpaUtil.getEntityManager());

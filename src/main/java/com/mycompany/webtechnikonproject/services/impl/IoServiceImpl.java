@@ -11,6 +11,9 @@ import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.services.IoServices;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.UserTransaction;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,8 +35,6 @@ public class IoServiceImpl implements IoServices {
 
     @Inject
     private RepairRepository repairRepository;
-
-  
 
     @Override
     public void savePropertyOwnerToCsv(String filename) {
@@ -157,6 +158,7 @@ public class IoServiceImpl implements IoServices {
 
     @Override
     public List<Property> loadPropertyData(String fileName) {
+
         List<String[]> list = readCsvFile(fileName);
         int e9;
         String address;
@@ -171,6 +173,7 @@ public class IoServiceImpl implements IoServices {
             properties.add(new Property(e9, address, yearOfConstruction, propertyType));
             logger.info("The property with E9 number {} has been loaded", e9);
         }
+
         return properties;
     }
 
@@ -196,4 +199,5 @@ public class IoServiceImpl implements IoServices {
         }
         return repairs;
     }
+
 }

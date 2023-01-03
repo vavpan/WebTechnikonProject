@@ -26,12 +26,12 @@ import java.util.Scanner;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-
 import java.util.ArrayList;
-import java.util.Optional;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,6 +58,9 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Inject
     private RepairRepository repairRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public PropertyOwner getOwnerFromConsole() {
@@ -229,8 +232,9 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void deleteProperty(int id) {
+    public boolean deleteProperty(int id) {
         propertyRepository.deleteProperty(id);
+        return true;
     }
 
     @Override
@@ -252,17 +256,11 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public List<PropertyDto> getAllProperties() {
-        List<PropertyDto> propertyDtoList = new ArrayList<>();
-        List<Property> allPropertyList = propertyRepository.findAll();
-        if (allPropertyList.isEmpty()) {
-            System.out.println("Database is empty");
-        }
-        for (Property property : allPropertyList) {
-            propertyDtoList.add(new PropertyDto(property));
-        }
-        return propertyDtoList;
-     
+    public List<Property> getAllProperties() {
+        TypedQuery<Property> query = entityManager.createQuery("SELECT p FROM property p", Property.class);
+        List<Property> properties = query.getResultList();
+
+        return properties;
     }
 
     @Override
@@ -284,9 +282,71 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto update(PropertyOwnerDto propertyOwnerDto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id) {
+        try {
+            PropertyOwner existingOwner = propertyOwnerRepository.findById(id);
+            existingOwner.setVat(propertyOwnerDto.getVat());
+            existingOwner.setName(propertyOwnerDto.getName());
+            existingOwner.setSurname(propertyOwnerDto.getSurname());
+            existingOwner.setAddress(propertyOwnerDto.getAddress());
+            existingOwner.setPhoneNumber(propertyOwnerDto.getPhoneNumber());
+            existingOwner.setEmail(propertyOwnerDto.getEmail());
+            existingOwner.setUsername(propertyOwnerDto.getUsername());
+            existingOwner.setPassword(propertyOwnerDto.getPassword());
+            entityManager.getTransaction().begin();
+            entityManager.merge(existingOwner);
+            entityManager.getTransaction().commit();
+            return new RestApiResult<PropertyOwnerDto>(propertyOwnerDto, 0, "successful");
+        } catch (Exception e) {
+            return new RestApiResult<PropertyOwnerDto>(propertyOwnerDto, 0, "successful");
+
+        }
+
     }
 
+    @Override
+    public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id) {
+        try {
+            Property existingProperty = propertyRepository.findById(id);
+            existingProperty.setE9(propertyDto.getE9());
+            existingProperty.setAddress(propertyDto.getAddress());
+            existingProperty.setYearOfConstruction(propertyDto.getYearOfConstruction());
+            existingProperty.setPropertyType(propertyDto.getPropertyType());
+            entityManager.getTransaction().begin();
+            entityManager.merge(existingProperty);
+            entityManager.getTransaction().commit();
+            return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
+        } catch (Exception e) {
+            return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
+
+        }
+
+    }
+
+    @Override
+    public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id) {
+        try {
+            Repair existingRepair = repairRepository.findById(id);
+            existingRepair.setRepairType(repairDto.getRepairType());
+            existingRepair.setRepairDescription(repairDto.getRepairDescription());
+            existingRepair.setSubmissionDate(repairDto.getSubmissionDate());
+            existingRepair.setWorkDescription(repairDto.getWorkDescription());
+            existingRepair.setStartDate(repairDto.getStartDate());
+            existingRepair.setEndDate(repairDto.getEndDate());
+            existingRepair.setCost(repairDto.getCost());
+            existingRepair.setRepairStatus(repairDto.getRepairStatus());
+            existingRepair.setActualStartDate(repairDto.getActualStartDate());
+            existingRepair.setActualEndDate(repairDto.getActualEndDate());
+            entityManager.getTransaction().begin();
+            entityManager.merge(existingRepair);
+            entityManager.getTransaction().commit();
+            return new RestApiResult<RepairDto>(repairDto, 0, "successful");
+
+        } catch (Exception e) {
+            return new RestApiResult<RepairDto>(repairDto, 0, "successful");
+
+        }
+
+    }
 
 }

@@ -86,7 +86,7 @@ public interface OwnerService {
      */
     void declineRepair(Repair repair);
 
-    void deleteProperty(int id);
+    boolean deleteProperty(int id);
 
     // REST API METHODS
     void createPropertyOwner(PropertyOwnerDto ownerDto);
@@ -109,8 +109,12 @@ public interface OwnerService {
 
     boolean deleteRepair(int repairId);
 
-    List<PropertyDto> getAllProperties();
+    List<Property> getAllProperties();
 
-    PropertyOwnerDto update(PropertyOwnerDto propertyOwnerDto);
+    RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id);
+
+    RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id);
+
+    RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id);
 
 }
