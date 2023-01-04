@@ -24,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 public class IoServiceImpl implements IoServices {
 
     private static final Logger logger = LogManager.getLogger(IoServiceImpl.class);
-    private static final String USER_FILE_NAME = "owners.csv";
 
     @Inject
     private PropertyOwnerRepository propertyOwnerRepository;
@@ -272,7 +271,7 @@ public class IoServiceImpl implements IoServices {
         propertyOwnerRepository.updateAddress(1, "Moran");
         propertyOwnerRepository.updateEmail(1, "Lasy");
         propertyOwnerRepository.updatePassword(1, "lasy123");
-        // Updates for Properties
+//         Updates for Properties
         propertyRepository.updateAddress(5, "Ledamonos 65");
         propertyRepository.updateOwnerVat(3, 426781512);
         propertyRepository.updateYearOfConstruction(4, "1980");
@@ -284,7 +283,7 @@ public class IoServiceImpl implements IoServices {
         repairRepository.updateEndDate(7, LocalDate.parse("2021-01-11"));
         repairRepository.updateActualEndDate(20, LocalDate.parse("2010-02-06"));
         repairRepository.updateActualStartDate(17, LocalDate.parse("2018-04-02"));
-        // Update work description for Repairs
+//         Update work description for Repairs
         repairRepository.updateWorkDescription(1, "Under Construction");
         repairRepository.updateWorkDescription(2, "Repaired successfully");
         repairRepository.updateWorkDescription(3, "Under Construction");

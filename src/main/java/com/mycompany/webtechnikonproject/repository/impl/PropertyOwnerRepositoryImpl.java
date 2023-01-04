@@ -8,6 +8,7 @@ import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -53,43 +54,52 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         return JpaUtil.getEntityManager().find(PropertyOwner.class, email);
     }
 
-    @Override
-    public void updateAddress(int id, String address) {
-        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
-        try {
-            propertyOwner.setAddress(address);
-            entityManager.getTransaction().begin();
-            entityManager.persist(propertyOwner);
-            entityManager.getTransaction().commit();
-            logger.info("The owner's address has been updated. Owne's VAT : {}.", propertyOwner.getVat());
-        } catch (Exception e) {
-            logger.warn("Can't be upadated", e);
-        }
-    }
-
-    @Override
-    public void updateEmail(int id, String email) {
-        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
-        propertyOwner.setEmail(email);
-        entityManager.getTransaction().begin();
+@Override
+public void updateAddress(int id, String address) {
+    PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+    try {
+        propertyOwner.setAddress(address);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
         entityManager.persist(propertyOwner);
-        entityManager.getTransaction().commit();
-        logger.info("The owner's email has been updated. Owne's VAT : {}.", propertyOwner.getVat());
+        transaction.commit();
+        logger.info("The owner's address has been updated. Owne's VAT : {}.", propertyOwner.getVat());
+    } catch (Exception e) {
+        logger.warn("Can't be upadated", e);
     }
+}
 
-    @Override
-    public void updatePassword(int id, String password) {
-        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
-        try {
-            propertyOwner.setPassword(password);
-            entityManager.getTransaction().begin();
-            entityManager.persist(propertyOwner);
-            entityManager.getTransaction().commit();
-            logger.info("The owner's password has been updated. Owne's VAT : {}.", propertyOwner.getVat());
-        } catch (Exception e) {
-            logger.warn("Can't be upadated", e);
-        }
+
+@Override
+public void updateEmail(int id, String email) {
+    PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+    propertyOwner.setEmail(email);
+    try {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(propertyOwner);
+        transaction.commit();
+        logger.info("The owner's email has been updated. Owne's VAT : {}.", propertyOwner.getVat());
+    } catch (Exception e) {
+        logger.warn("Can't be upadated", e);
     }
+}
+
+
+@Override
+public void updatePassword(int id, String password) {
+    PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+    try {
+        propertyOwner.setPassword(password);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(propertyOwner);
+        transaction.commit();
+        logger.info("The owner's password has been updated. Owne's VAT : {}.", propertyOwner.getVat());
+    } catch (Exception e) {
+        logger.warn("Can't be upadated", e);
+    }
+}
 
     @Override
     @Transactional

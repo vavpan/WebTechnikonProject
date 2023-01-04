@@ -10,6 +10,7 @@ import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import java.io.IOError;
@@ -35,13 +36,8 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         }
     }
 
-
-
     @PersistenceContext
     private EntityManager entityManager;
-
-
-
 
     @Override
     public String getClassName() {
@@ -65,9 +61,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Property property = entityManager.find(Property.class, propertyId);
         try {
             repair.setProperty(property);
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.merge(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's property id has been updated");
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);
@@ -121,9 +118,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Repair repair = entityManager.find(Repair.class, id);
         repair.setWorkDescription(workDescription);
         try {
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's work description with id {} has been updated", repair.getId());
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);
@@ -134,6 +132,15 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
     public void updateStartDate(int id, LocalDate startDate) {
         Repair repair = entityManager.find(Repair.class, id);
         repair.setStartDate(startDate);
+        try {
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(repair);
+            transaction.commit();
+            logger.info("The Repair's start date with id {} has been updated", repair.getId());
+        } catch (Exception ex) {
+            logger.warn(" Can't be updated", ex);
+        }
     }
 
     @Override
@@ -141,9 +148,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Repair repair = entityManager.find(Repair.class, id);
         repair.setEndDate(endDate);
         try {
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's end date with id {} has been updated", repair.getId());
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);
@@ -155,9 +163,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Repair repair = entityManager.find(Repair.class, id);
         repair.setCost(cost);
         try {
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's cost with id {} has been updated", repair.getId());
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);
@@ -169,9 +178,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Repair repair = entityManager.find(Repair.class, id);
         repair.setAcceptance(acceptance);
         try {
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's acceptance with id {} has been updated", repair.getId());
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);
@@ -211,9 +221,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         Repair repair = entityManager.find(Repair.class, id);
         repair.setActualEndDate(actualEndDate);
         try {
-            entityManager.getTransaction().begin();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(repair);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             logger.info("The Repair's actual end date with id {} has been updated", repair.getId());
         } catch (Exception ex) {
             logger.warn(" Can't be updated", ex);

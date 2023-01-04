@@ -33,7 +33,7 @@ public class InitResource {
         ioServices.readOwnersCsv("C:\\Users\\vavil\\Documents\\NetBeansProjects\\WebTechnikonProject\\owners.csv");
         ioServices.readPropertyCsv("C:\\Users\\vavil\\Documents\\NetBeansProjects\\WebTechnikonProject\\property.csv");
         ioServices.readRepairCsv("C:\\Users\\vavil\\Documents\\NetBeansProjects\\WebTechnikonProject\\repairs.csv");
-//        ioServices.relationshipsBetweenObjects();
+        ioServices.relationshipsBetweenObjects();
         
     }
     
