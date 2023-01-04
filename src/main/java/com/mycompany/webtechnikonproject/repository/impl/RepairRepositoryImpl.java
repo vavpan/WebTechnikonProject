@@ -4,8 +4,11 @@ import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.Repair;
+import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
+import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -32,7 +35,9 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         }
     }
 
-    @PersistenceContext(unitName = "Persistence")
+
+
+    @PersistenceContext
     private EntityManager entityManager;
 
 

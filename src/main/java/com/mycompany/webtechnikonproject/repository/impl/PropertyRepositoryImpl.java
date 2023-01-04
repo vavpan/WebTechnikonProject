@@ -4,8 +4,11 @@ import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
+import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
+import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -16,7 +19,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.Properties;
-
 
 public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements PropertyRepository {
 
@@ -32,11 +34,9 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
         }
     }
 
-    @PersistenceContext(unitName = "Persistence")
+
+    @PersistenceContext
     private EntityManager entityManager;
-
-
- 
 
     @Override
     public String getClassName() {

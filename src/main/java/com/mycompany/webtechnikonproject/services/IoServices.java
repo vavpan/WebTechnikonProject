@@ -4,9 +4,11 @@ import com.mycompany.webtechnikonproject.model.PersistentClass;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
+import jakarta.ejb.Local;
 import java.util.List;
 
-public interface IoServices<T extends PersistentClass> {
+
+public interface IoServices {
 
   /**
    * This method saves the property owners table in to a csv file
@@ -62,4 +64,12 @@ public interface IoServices<T extends PersistentClass> {
    */
   List<Repair> loadRepairData(String fileName);
 
+  
+  public void readOwnersCsv(String fileName);
+ 
+  public void readPropertyCsv(String fileName);
+  
+  public void readRepairCsv(String fileName);
+  
+  public void relationshipsBetweenObjects();
 }

@@ -30,8 +30,8 @@ public class OwnerResource {
         return ownerService.getOwnerByVat(vat);
 
     }
-    
-      @GET
+
+    @GET
     @Path("owner/email/{email}")
     @Produces("application/json")
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("email") String email) {

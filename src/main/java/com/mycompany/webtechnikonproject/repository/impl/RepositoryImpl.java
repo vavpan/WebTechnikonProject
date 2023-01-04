@@ -13,7 +13,9 @@ import java.util.Optional;
 
 public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T>, Serializable {
 
-    @PersistenceContext(unitName = "Persistence")
+
+
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Inject

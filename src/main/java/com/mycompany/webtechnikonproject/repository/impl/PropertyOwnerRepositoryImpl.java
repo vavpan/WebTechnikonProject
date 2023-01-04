@@ -3,7 +3,10 @@ package com.mycompany.webtechnikonproject.repository.impl;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
+import com.mycompany.webtechnikonproject.repository.PropertyRepository;
+import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -30,7 +33,9 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         }
     }
 
-    @PersistenceContext(unitName = "Persistence")
+
+
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

@@ -13,7 +13,6 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.UserTransaction;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -179,7 +178,7 @@ public class IoServiceImpl implements IoServices {
 
     @Override
     public List<Repair> loadRepairData(String fileName) {
-        List<String[]> list = readCsvFile("repairs.csv");
+        List<String[]> list = readCsvFile(fileName);
         String repairDescription;
         LocalDate submissionDate;
         LocalDate startDate;
@@ -198,6 +197,114 @@ public class IoServiceImpl implements IoServices {
             logger.info("The repair with has been loaded");
         }
         return repairs;
+    }
+
+    @Override
+    public void readOwnersCsv(String fileName) {
+        List<PropertyOwner> propertyOwners = loadOwnerData(fileName);
+        for (PropertyOwner propertyOwner : propertyOwners) {
+            propertyOwnerRepository.create(propertyOwner);
+        }
+
+    }
+
+    @Override
+    public void readPropertyCsv(String fileName) {
+        List<Property> properties = loadPropertyData(fileName);
+        for (Property property : properties) {
+            propertyRepository.create(property);
+        }
+        
+        
+    }
+
+    @Override
+    public void readRepairCsv(String fileName) {
+        List<Repair> repairs = loadRepairData(fileName);
+        for (Repair repair : repairs) {
+            repairRepository.create(repair);
+        }
+    }
+
+    @Override
+    public void relationshipsBetweenObjects() {
+        propertyRepository.updateOwnerId(1, 1);
+        propertyRepository.updateOwnerId(2, 2);
+        propertyRepository.updateOwnerId(3, 2);
+        propertyRepository.updateOwnerId(4, 3);
+        propertyRepository.updateOwnerId(5, 4);
+        propertyRepository.updateOwnerId(6, 5);
+        propertyRepository.updateOwnerId(7, 6);
+        propertyRepository.updateOwnerId(8, 7);
+        propertyRepository.updateOwnerId(9, 8);
+        propertyRepository.updateOwnerId(10, 7);
+        propertyRepository.updateOwnerId(11, 9);
+        propertyRepository.updateOwnerId(12, 10);
+        propertyRepository.updateOwnerId(13, 11);
+        propertyRepository.updateOwnerId(14, 12);
+        propertyRepository.updateOwnerId(15, 13);
+        propertyRepository.updateOwnerId(16, 14);
+        propertyRepository.updateOwnerId(17, 15);
+        propertyRepository.updateOwnerId(18, 16);
+        propertyRepository.updateOwnerId(19, 17);
+        propertyRepository.updateOwnerId(20, 18);
+        repairRepository.updatePropertyId(1, 2);
+        repairRepository.updatePropertyId(2, 1);
+        repairRepository.updatePropertyId(3, 2);
+        repairRepository.updatePropertyId(4, 5);
+        repairRepository.updatePropertyId(5, 7);
+        repairRepository.updatePropertyId(6, 8);
+        repairRepository.updatePropertyId(7, 8);
+        repairRepository.updatePropertyId(8, 10);
+        repairRepository.updatePropertyId(9, 12);
+        repairRepository.updatePropertyId(10, 20);
+        repairRepository.updatePropertyId(11, 19);
+        repairRepository.updatePropertyId(12, 15);
+        repairRepository.updatePropertyId(13, 13);
+        repairRepository.updatePropertyId(14, 13);
+        repairRepository.updatePropertyId(15, 4);
+        repairRepository.updatePropertyId(16, 3);
+        repairRepository.updatePropertyId(17, 6);
+        repairRepository.updatePropertyId(18, 11);
+        repairRepository.updatePropertyId(19, 16);
+        repairRepository.updatePropertyId(20, 17);
+        // Updates for PropertyOwners
+        propertyOwnerRepository.updateAddress(1, "Moran");
+        propertyOwnerRepository.updateEmail(1, "Lasy");
+        propertyOwnerRepository.updatePassword(1, "lasy123");
+        // Updates for Properties
+        propertyRepository.updateAddress(5, "Ledamonos 65");
+        propertyRepository.updateOwnerVat(3, 426781512);
+        propertyRepository.updateYearOfConstruction(4, "1980");
+        propertyRepository.updatePropertyType(9, PropertyType.MAISONETTE);
+        // Updates for Repairs
+        repairRepository.updateAcceptance(1, false);
+        repairRepository.updateCost(3, 450);
+        repairRepository.updateStartDate(10, LocalDate.parse("2020-05-18"));
+        repairRepository.updateEndDate(7, LocalDate.parse("2021-01-11"));
+        repairRepository.updateActualEndDate(20, LocalDate.parse("2010-02-06"));
+        repairRepository.updateActualStartDate(17, LocalDate.parse("2018-04-02"));
+        // Update work description for Repairs
+        repairRepository.updateWorkDescription(1, "Under Construction");
+        repairRepository.updateWorkDescription(2, "Repaired successfully");
+        repairRepository.updateWorkDescription(3, "Under Construction");
+        repairRepository.updateWorkDescription(4, "Recently started");
+        repairRepository.updateWorkDescription(5, "Under control");
+        repairRepository.updateWorkDescription(6, "Repaired successfully");
+        repairRepository.updateWorkDescription(7, "Repaired successfully");
+        repairRepository.updateWorkDescription(8, "Repair of building completed");
+        repairRepository.updateWorkDescription(9, "Recently started");
+        repairRepository.updateWorkDescription(10, "50% of the work done");
+        repairRepository.updateWorkDescription(11, "Under construction");
+        repairRepository.updateWorkDescription(12, "Under construction");
+        repairRepository.updateWorkDescription(13, "Repaired successfully");
+        repairRepository.updateWorkDescription(14, "80% of the work done");
+        repairRepository.updateWorkDescription(15, "Under construction");
+        repairRepository.updateWorkDescription(16, "Recently started");
+        repairRepository.updateWorkDescription(17, "Under construction");
+        repairRepository.updateWorkDescription(18, "Under construction");
+        repairRepository.updateWorkDescription(19, "Work recently started");
+        repairRepository.updateWorkDescription(20, "Fixed");
     }
 
 }
