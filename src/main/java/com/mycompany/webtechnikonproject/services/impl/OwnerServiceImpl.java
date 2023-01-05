@@ -133,15 +133,15 @@ public class OwnerServiceImpl implements OwnerService {
         repair.setProperty(property);
         repair.setRepairType(RepairType.valueOf(repairDetailsSplit[0].trim().toUpperCase()));
         repair.setRepairDescription(repairDetailsSplit[1].trim());
-        repair.setSubmissionDate(LocalDate.parse(repairDetailsSplit[2]));
+        repair.setSubmissionDate(repairDetailsSplit[2].trim());
         repair.setWorkDescription(repairDetailsSplit[3].trim());
-        repair.setStartDate(LocalDate.parse(repairDetailsSplit[4].trim()));
-        repair.setEndDate(LocalDate.parse(repairDetailsSplit[5].trim()));
+        repair.setStartDate(repairDetailsSplit[4].trim());
+        repair.setEndDate(repairDetailsSplit[5].trim());
         repair.setCost(Double.parseDouble(repairDetailsSplit[6].trim()));
         repair.setAcceptance(Boolean.parseBoolean(repairDetailsSplit[7].trim()));
         repair.setRepairStatus(RepairStatus.valueOf(repairDetailsSplit[8].trim().toUpperCase()));
-        repair.setActualStartDate(LocalDate.parse(repairDetailsSplit[9].trim()));
-        repair.setActualEndDate(LocalDate.parse(repairDetailsSplit[10].trim()));
+        repair.setActualStartDate(repairDetailsSplit[9].trim());
+        repair.setActualEndDate(repairDetailsSplit[10].trim());
         return repair;
     }
 

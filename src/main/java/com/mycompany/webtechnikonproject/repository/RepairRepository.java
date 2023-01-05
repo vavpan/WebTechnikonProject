@@ -12,7 +12,7 @@ public interface RepairRepository extends Repository<Repair> {
 
     Repair search(int id);
 
-    List<Repair> search(LocalDate submissionDate);
+    List<Repair> search(String submissionDate);
 
     void updatePropertyId(int repairId, int propertyId);
 
@@ -20,13 +20,13 @@ public interface RepairRepository extends Repository<Repair> {
 
     void updateRepairDescription(int id, String repairDescription);
 
-    void updateSubmissionDate(int id, LocalDate submissionDate);
+    void updateSubmissionDate(int id, String submissionDate);
 
     void updateWorkDescription(int id, String workDescription);
 
-    void updateStartDate(int id, LocalDate startDate);
+    void updateStartDate(int id, String startDate);
 
-    void updateEndDate(int id, LocalDate endDate);
+    void updateEndDate(int id, String endDate);
 
     void updateCost(int id, double cost);
 
@@ -34,9 +34,9 @@ public interface RepairRepository extends Repository<Repair> {
 
     void updateRepairStatus(int id, RepairStatus repairStatus);
 
-    void updateActualStartDate(int id, LocalDate actualStartDate);
+    void updateActualStartDate(int id, String actualStartDate);
 
-    void updateActualEndDate(int id, LocalDate actualEndDate);
+    void updateActualEndDate(int id, String actualEndDate);
 
     List<Repair> readAll();
 

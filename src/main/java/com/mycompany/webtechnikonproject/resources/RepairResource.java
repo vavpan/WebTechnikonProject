@@ -23,7 +23,6 @@ public class RepairResource {
     @Inject
     private OwnerService ownerService;
 
-
     @GET
     @Path("repair/{repairId}")
     @Produces("application/json")
@@ -35,7 +34,7 @@ public class RepairResource {
     @Path("repair/{repairId}")
     @Consumes("application/json")
     public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, @PathParam("repairId") int repairId) {
-       return ownerService.updateRepair(repairDto, repairId);
+        return ownerService.updateRepair(repairDto, repairId);
     }
 
     @POST

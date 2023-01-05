@@ -14,7 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -179,16 +179,16 @@ public class IoServiceImpl implements IoServices {
     public List<Repair> loadRepairData(String fileName) {
         List<String[]> list = readCsvFile(fileName);
         String repairDescription;
-        LocalDate submissionDate;
-        LocalDate startDate;
+        String submissionDate;
+        String startDate;
         double cost;
         boolean acceptance;
         RepairStatus repairStatus;
         List<Repair> repairs = new ArrayList<>();
         for (String[] temp : list) {
             repairDescription = temp[0];
-            submissionDate = LocalDate.parse(temp[1]);
-            startDate = LocalDate.parse(temp[2]);
+            submissionDate =  temp[1];
+            startDate =  temp[2];
             cost = Double.parseDouble(temp[3]);
             acceptance = Boolean.parseBoolean(temp[4]);
             repairStatus = RepairStatus.valueOf(temp[5]);
@@ -279,10 +279,10 @@ public class IoServiceImpl implements IoServices {
         // Updates for Repairs
         repairRepository.updateAcceptance(1, false);
         repairRepository.updateCost(3, 450);
-        repairRepository.updateStartDate(10, LocalDate.parse("2020-05-18"));
-        repairRepository.updateEndDate(7, LocalDate.parse("2021-01-11"));
-        repairRepository.updateActualEndDate(20, LocalDate.parse("2010-02-06"));
-        repairRepository.updateActualStartDate(17, LocalDate.parse("2018-04-02"));
+        repairRepository.updateStartDate(10,"2020-05-18");
+        repairRepository.updateEndDate(7, "2021-01-11");
+        repairRepository.updateActualEndDate(20, "2010-02-06");
+        repairRepository.updateActualStartDate(17, "2018-04-02");
 //         Update work description for Repairs
         repairRepository.updateWorkDescription(1, "Under Construction");
         repairRepository.updateWorkDescription(2, "Repaired successfully");
@@ -303,7 +303,7 @@ public class IoServiceImpl implements IoServices {
         repairRepository.updateWorkDescription(17, "Under construction");
         repairRepository.updateWorkDescription(18, "Under construction");
         repairRepository.updateWorkDescription(19, "Work recently started");
-        repairRepository.updateWorkDescription(20, "Fixed");
+        repairRepository.updateWorkDescription(20, "Fixed"); 
     }
 
 }

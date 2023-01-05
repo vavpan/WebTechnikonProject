@@ -22,15 +22,15 @@ public class RepairDto {
 
     private RepairType repairType;
     private String repairDescription;
-    private LocalDate submissionDate;
+    private String submissionDate;
     private String workDescription;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private double cost;
     private boolean acceptance;
     private RepairStatus repairStatus;
-    private LocalDate actualStartDate;
-    private LocalDate actualEndDate;
+    private String actualStartDate;
+    private String actualEndDate;
     private PropertyDto property;
 
     public RepairDto(Repair repair) {

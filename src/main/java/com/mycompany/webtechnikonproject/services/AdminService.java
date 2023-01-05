@@ -30,7 +30,7 @@ public interface AdminService {
      * @param startDate
      * @param endDate
      */
-    void proposeDates(Repair repair, LocalDate startDate, LocalDate endDate);
+    void proposeDates(Repair repair, String startDate, String endDate);
 
     /**
      * This method displays a list of the final start and end dates of the

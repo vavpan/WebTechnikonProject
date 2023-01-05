@@ -83,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void proposeDates(Repair repair, LocalDate startDate, LocalDate endDate) {
+    public void proposeDates(Repair repair, String startDate, String endDate) {
 
         try {
             repairRepository.updateStartDate(repair.getId(), startDate);
