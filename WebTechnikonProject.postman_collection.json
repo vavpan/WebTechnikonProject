@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "113fc99f-60de-4c32-aefe-c0713f191d69",
+		"name": "WebTechnikonProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ownerResource",
+			"item": [
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"repairType\": \"PAINTING\",\r\n    \"repairDescription\": \"THIS IS A TEST!!!\",\r\n    \"submissionDate\": null,\r\n    \"workDescription\": \"APARTMENT_BUILDING\",\r\n    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"cost\": null,\r\n    \"acceptance\": null,\r\n    \"repairStatus\": null,\r\n    \"actualStartDate\": null,\r\n    \"actualEndDate\": null,\r\n    \"property\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/vat/12",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/vat/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner",
+								"vat",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/email/saaaaaassaaaaa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/email/saaaaaassaaaaa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner",
+								"email",
+								"saaaaaassaaaaa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owners",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vat\": 1,\r\n    \"name\": \"assws\",\r\n    \"surname\": \"Dan Jukes\",\r\n    \"address\": \"Dan Jukes\",\r\n    \"phoneNumber\": \"sss\",\r\n    \"email\": \"sss\",\r\n    \"username\": \"sss\",\r\n    \"password\": \"sss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vat\": 1,\r\n    \"name\": \"assws\",\r\n    \"surname\": \"Dan Jukes\",\r\n    \"address\": \"Dan Jukes\",\r\n    \"phoneNumber\": \"sss\",\r\n    \"email\": \"sss\",\r\n    \"username\": \"sss\",\r\n    \"password\": \"sss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/4",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/ownerResource/owner/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"ownerResource",
+								"owner",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "propertyResource",
+			"item": [
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"propertyResource",
+								"property",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"e9\": 1,\r\n    \"address\": \"assws\",\r\n    \"yearOfConstruction\": \"Dan Jukes\",\r\n    \"propertyType\": \"APARTMENT_BUILDING\",\r\n    \"owner\": null,\r\n    \"repairs\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"propertyResource",
+								"property"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"address\": sdadasdasdasdasdasdasdasdassdsa,\r\n    \"yearOfConstruction\": \"testttt\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"propertyResource",
+								"property",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/propertyResource/property/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"propertyResource",
+								"property",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "repairResource",
+			"item": [
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"repairResource",
+								"repair",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"repairType\": \"PAINTING\",\r\n    \"repairDescription\": \"assws\",\r\n    \"submissionDate\": null,\r\n    \"workDescription\": \"APARTMENT_BUILDING\",\r\n    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"cost\": null,\r\n    \"acceptance\": null,\r\n    \"repairStatus\": null,\r\n    \"actualStartDate\": null,\r\n    \"actualEndDate\": null,\r\n    \"property\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"repairResource",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"repairType\": \"PAINTING\",\r\n    \"repairDescription\": \"THIS IS A TEST!!!\",\r\n    \"submissionDate\": null,\r\n    \"workDescription\": \"APARTMENT_BUILDING\",\r\n    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"cost\": null,\r\n    \"acceptance\": null,\r\n    \"repairStatus\": null,\r\n    \"actualStartDate\": null,\r\n    \"actualEndDate\": null,\r\n    \"property\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"repairResource",
+								"repair",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/repairResource/repair/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"repairResource",
+								"repair",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InitResource",
+			"item": [
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/initialization",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cost\": 420\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/initialization",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"initialization"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "adminResource",
+			"item": [
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/admin/pendingRepairs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/admin/pendingRepairs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"admin",
+								"pendingRepairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/admin/actualDatesPendingRepairs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/admin/actualDatesPendingRepairs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"admin",
+								"actualDatesPendingRepairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/WebTechnikonProject/resources/initialization",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"repairType\": \"PAINTING\",\r\n    \"repairDescription\": \"THIS IS A TEST!!!\",\r\n    \"submissionDate\": null,\r\n    \"workDescription\": \"APARTMENT_BUILDING\",\r\n    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"cost\": null,\r\n    \"acceptance\": null,\r\n    \"repairStatus\": null,\r\n    \"actualStartDate\": null,\r\n    \"actualEndDate\": null,\r\n    \"property\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/WebTechnikonProject/resources/admin/proposeCostsAndDates/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"WebTechnikonProject",
+								"resources",
+								"admin",
+								"proposeCostsAndDates",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
