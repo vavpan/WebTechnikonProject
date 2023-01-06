@@ -1,5 +1,6 @@
 package com.mycompany.webtechnikonproject.repository;
 
+import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Repair;
@@ -43,5 +44,7 @@ public interface RepairRepository extends Repository<Repair> {
     Repair findById(int id);
 
     boolean deleteRepair(int id);
+    
+
 
 }

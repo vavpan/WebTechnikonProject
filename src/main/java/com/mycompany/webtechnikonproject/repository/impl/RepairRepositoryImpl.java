@@ -1,5 +1,6 @@
 package com.mycompany.webtechnikonproject.repository.impl;
 
+import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Property;
@@ -12,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.io.IOError;
 import java.io.IOException;
@@ -127,6 +129,8 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
             logger.warn(" Can't be updated", ex);
         }
     }
+
+
 
     @Override
     public void updateStartDate(int id, String startDate) {

@@ -23,6 +23,8 @@ import org.apache.logging.log4j.Logger;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -52,31 +54,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void displayPendingRepairs() {
-        TypedQuery<Tuple> query = JpaUtil.getEntityManager().createQuery(sqlCommands.getProperty("select.pendingRepairs"), Tuple.class);
-        List<Tuple> resultList = query.getResultList();
-        resultList.forEach(tuple -> System.out.println("Property id: " + tuple.get(1)
-                + "| Repair id: " + tuple.get(0)
-                + "| Type of repair: " + tuple.get(9)
-                + "| Repair description: " + tuple.get(7)
-                + "| Submission date: " + tuple.get(11)
-                + "| Work to be done: " + tuple.get(12)
-                + "| Proposed start date: " + tuple.get(10)
-                + "| Proposed end date: " + tuple.get(6)
-                + "| Proposed cost: " + tuple.get(5)
-                + "| Repair accepted: " + tuple.get(2)
-                + "| Repair status: " + tuple.get(8)
-                + "| Actual start date: " + tuple.get(4)
-                + "| Actual end date: " + tuple.get(3)));
+    @Transactional
+    public List<Repair> getPendingRepairs() {
+        String jql = "SELECT r FROM repair r WHERE r.repairStatus = 'PENDING'";
+        Query query = entityManager.createQuery(jql);
+        return query.getResultList();
     }
 
-
-
     @Override
-    public void proposeCosts(Repair repair, double cost) {
+    public void proposeCosts(int id, double cost) {
         try {
-            repairRepository.updateCost(repair.getId(), cost);
-            logger.info("The cost of the repair with id {} has been proposed", repair.getId());
+            repairRepository.updateCost(id, cost);
+            logger.info("The cost of the repair with id {} has been proposed", id);
         } catch (Exception e) {
             logger.warn("Can not propose the costs");
         }
@@ -95,13 +84,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void displayActualDatesOfPendingRepairs() {
-        TypedQuery<Tuple> query = JpaUtil.getEntityManager().createQuery(sqlCommands.getProperty("select.start.end.dates"), Tuple.class);
-        List<Tuple> resultList = query.getResultList();
-        resultList.forEach(tuple -> System.out.println(
-                "| Repair id: " + tuple.get(0)
-                + "| Actual start date: " + tuple.get(1)
-                + "| Actual end date: " + tuple.get(2)));
+    @Transactional
+    public List<Repair> displayActualDatesOfPendingRepairs() {
+        String jql = "SELECT r.id,r.actualStartDate,r.actualEndDate FROM repair r WHERE r.repairStatus = 'PENDING'";
+        Query query = entityManager.createQuery(jql);
+        return query.getResultList();
     }
 
 }

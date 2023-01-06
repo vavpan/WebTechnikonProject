@@ -14,14 +14,14 @@ public interface AdminService {
      *
      * @return
      */
-    void displayPendingRepairs();
+   List<Repair> getPendingRepairs();
 
     /**
      * This method updates the cost value to the proposed by the admin
      *
      * @param repair
      */
-    void proposeCosts(Repair repair, double cost);
+    void proposeCosts(int id, double cost);
 
     /**
      * This method sets the proposed by the admin Dates of the repair.
@@ -38,8 +38,6 @@ public interface AdminService {
      *
      * @return
      */
-    void displayActualDatesOfPendingRepairs();
-
-
+     List<Repair> displayActualDatesOfPendingRepairs();
 
 }

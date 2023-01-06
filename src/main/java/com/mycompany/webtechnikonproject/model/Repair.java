@@ -44,6 +44,8 @@ public class Repair extends PersistentClass {
     this.acceptance = acceptance;
     this.repairStatus = repairStatus;
 
+    
   }
+  
 
 }

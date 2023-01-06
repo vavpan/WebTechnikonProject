@@ -7,7 +7,6 @@ package com.mycompany.webtechnikonproject.dto;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Repair;
-import java.time.LocalDate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RepairDto {
 
-
+    private int id;
     private RepairType repairType;
     private String repairDescription;
     private String submissionDate;
@@ -34,7 +33,8 @@ public class RepairDto {
     private PropertyDto property;
 
     public RepairDto(Repair repair) {
- 
+
+        this.id = repair.getId();
         this.repairType = repair.getRepairType();
         this.repairDescription = repair.getRepairDescription();
         this.submissionDate = repair.getSubmissionDate();
@@ -47,8 +47,10 @@ public class RepairDto {
         this.actualEndDate = repair.getActualEndDate();
     }
 
+
     public Repair asRepair() {
         Repair repair = new Repair();
+        repair.setId(id);
         repair.setRepairType(repairType);
         repair.setRepairDescription(repairDescription);
         repair.setSubmissionDate(submissionDate);
