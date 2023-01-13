@@ -13,8 +13,6 @@ import java.util.Optional;
 
 public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T>, Serializable {
 
-
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -35,6 +33,11 @@ public abstract class RepositoryImpl<T extends PersistentClass> implements Repos
     @Override
     public List<T> findAll() {
         return entityManager.createQuery("from " + getClassName()).getResultList();
+    }
+
+    @Override
+    public T read(int id) {
+        return entityManager.find(getClassType(), id);
     }
 
     @Override

@@ -99,6 +99,8 @@ public interface OwnerService {
 
     RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email);
 
+    List<PropertyOwner> getAllOwners();
+
     RestApiResult<PropertyDto> getProperty(int propertyId);
 
     RestApiResult<RepairDto> getRepair(int repairId);
@@ -110,6 +112,22 @@ public interface OwnerService {
     boolean deleteRepair(int repairId);
 
     RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id);
+
+    PropertyOwnerDto updateAddress(int id, String newAddress);
+
+    PropertyOwnerDto updateEmail(int id, String email);
+
+    PropertyOwnerDto updateName(int id, String name);
+
+    PropertyOwnerDto updateSurname(int id, String surname);
+
+    PropertyOwnerDto updatePassword(int id, String password);
+
+    PropertyOwnerDto updatePhoneNumber(int id, String phoneNumber);
+
+    PropertyOwnerDto updateUsername(int id, String username);
+
+    PropertyOwnerDto updateVat(int id, int vat);
 
     RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id);
 

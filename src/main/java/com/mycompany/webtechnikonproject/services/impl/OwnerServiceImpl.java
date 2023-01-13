@@ -19,7 +19,6 @@ import com.mycompany.webtechnikonproject.services.OwnerService;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
@@ -27,13 +26,11 @@ import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-import jakarta.transaction.UserTransaction;
-import java.util.ArrayList;
-import javax.naming.InitialContext;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +41,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     {
         final ClassLoader loader = getClass().getClassLoader();
-        try ( InputStream config = loader.getResourceAsStream("sql.properties")) {
+        try (InputStream config = loader.getResourceAsStream("sql.properties")) {
             sqlCommands.load(config);
         } catch (IOException e) {
             throw new IOError(e);
@@ -214,8 +211,14 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email) {
-            PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByEmail(email));
+        PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByEmail(email));
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+    }
+
+    @Override
+    @Transactional
+    public List<PropertyOwner> getAllOwners() {
+        return propertyOwnerRepository.findAll();
     }
 
     @Override
@@ -322,6 +325,72 @@ public class OwnerServiceImpl implements OwnerService {
 
         }
 
+    }
+
+    @Override
+    public PropertyOwnerDto updateAddress(int id, String newAddress) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setAddress(newAddress);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updateEmail(int id, String email) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setEmail(email);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updateName(int id, String name) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        //if null exception
+        propertyOwner.setName(name);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+
+    }
+
+    @Override
+    public PropertyOwnerDto updateSurname(int id, String surname) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setSurname(surname);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updatePassword(int id, String password) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setPassword(password);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updatePhoneNumber(int id, String phoneNumber) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setPhoneNumber(phoneNumber);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updateUsername(int id, String username) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setUsername(username);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyOwnerDto updateVat(int id, int vat) {
+        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+        propertyOwner.setVat(vat);
+        propertyOwnerRepository.create(propertyOwner);
+        return new PropertyOwnerDto(propertyOwner);
     }
 
 }
