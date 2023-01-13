@@ -45,9 +45,8 @@ public class OwnerResource {
     @GET
     @Path("owners")
     @Produces("application/json")
-    public List<PropertyOwner> getAllOwners() {
-        List<PropertyOwner> owners = ownerService.getAllOwners();
-        return owners;
+    public List<PropertyOwnerDto> getAllOwners() {
+        return ownerService.getAllOwners();
 
     }
 

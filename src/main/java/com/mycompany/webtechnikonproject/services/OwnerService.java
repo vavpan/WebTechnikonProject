@@ -4,6 +4,9 @@ import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
+import com.mycompany.webtechnikonproject.enums.PropertyType;
+import com.mycompany.webtechnikonproject.enums.RepairStatus;
+import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.exceptions.PropertyException;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
@@ -99,7 +102,7 @@ public interface OwnerService {
 
     RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email);
 
-    List<PropertyOwner> getAllOwners();
+    List<PropertyOwnerDto> getAllOwners();
 
     RestApiResult<PropertyDto> getProperty(int propertyId);
 
@@ -131,6 +134,34 @@ public interface OwnerService {
 
     RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id);
 
+    PropertyDto updatePropertyAddress(int propertyId, String address);
+
+    PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction);
+
+    PropertyDto updatePropertyType(int propertyId, PropertyType propertyType);
+
     RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id);
+
+    RepairDto updateRepairType(int id, RepairType repairType);
+
+    RepairDto updateRepairDescription(int id, String repairDescription);
+
+    RepairDto updateSubmissionDate(int id, String submissionDate);
+
+    RepairDto updateWorkDescription(int id, String workDescription);
+
+    RepairDto updateStartDate(int id, String startDate);
+
+    RepairDto updateEndDate(int id, String endDate);
+
+    RepairDto updateCost(int id, double cost);
+
+    RepairDto updateAcceptance(int id, boolean acceptance);
+
+    RepairDto updateRepairStatus(int id, RepairStatus repairStatus);
+
+    RepairDto updateActualStartDate(int id, String actualStartDate);
+
+    RepairDto updateActualEndDate(int id, String actualEndDate);
 
 }

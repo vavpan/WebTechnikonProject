@@ -31,6 +31,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -217,8 +218,8 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     @Transactional
-    public List<PropertyOwner> getAllOwners() {
-        return propertyOwnerRepository.findAll();
+    public List<PropertyOwnerDto> getAllOwners() {
+        return propertyOwnerRepository.findAll().stream().map(PropertyOwnerDto::new).collect(Collectors.toList());
     }
 
     @Override
@@ -391,6 +392,121 @@ public class OwnerServiceImpl implements OwnerService {
         propertyOwner.setVat(vat);
         propertyOwnerRepository.create(propertyOwner);
         return new PropertyOwnerDto(propertyOwner);
+    }
+
+    @Override
+    public PropertyDto updatePropertyAddress(int propertyId, String address) {
+        Property property = propertyRepository.read(propertyId);
+        property.setAddress(address);
+        propertyRepository.create(property);
+        return new PropertyDto(property);
+
+    }
+
+    @Override
+    public PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction) {
+        Property property = propertyRepository.read(propertyId);
+        property.setYearOfConstruction(yearOfConstruction);
+        propertyRepository.create(property);
+        return new PropertyDto(property);
+
+    }
+
+    @Override
+    public PropertyDto updatePropertyType(int propertyId, PropertyType propertyType) {
+        Property property = propertyRepository.read(propertyId);
+        property.setPropertyType(propertyType);
+        propertyRepository.create(property);
+        return new PropertyDto(property);
+
+    }
+
+    @Override
+    public RepairDto updateRepairType(int id, RepairType repairType) {
+        Repair repair = repairRepository.read(id);
+        repair.setRepairType(repairType);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateRepairDescription(int id, String repairDescription) {
+        Repair repair = repairRepository.read(id);
+        repair.setRepairDescription(repairDescription);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateSubmissionDate(int id, String submissionDate) {
+        Repair repair = repairRepository.read(id);
+        repair.setSubmissionDate(submissionDate);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateWorkDescription(int id, String workDescription) {
+        Repair repair = repairRepository.read(id);
+        repair.setWorkDescription(workDescription);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateStartDate(int id, String startDate) {
+        Repair repair = repairRepository.read(id);
+        repair.setStartDate(startDate);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateEndDate(int id, String endDate) {
+        Repair repair = repairRepository.read(id);
+        repair.setEndDate(endDate);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateCost(int id, double cost) {
+        Repair repair = repairRepository.read(id);
+        repair.setCost(cost);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateAcceptance(int id, boolean acceptance) {
+        Repair repair = repairRepository.read(id);
+        repair.setAcceptance(acceptance);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateRepairStatus(int id, RepairStatus repairStatus) {
+        Repair repair = repairRepository.read(id);
+        repair.setRepairStatus(repairStatus);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateActualStartDate(int id, String actualStartDate) {
+        Repair repair = repairRepository.read(id);
+        repair.setActualStartDate(actualStartDate);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
+    }
+
+    @Override
+    public RepairDto updateActualEndDate(int id, String actualEndDate) {
+        Repair repair = repairRepository.read(id);
+        repair.setActualEndDate(actualEndDate);
+        repairRepository.create(repair);
+        return new RepairDto(repair);
     }
 
 }
