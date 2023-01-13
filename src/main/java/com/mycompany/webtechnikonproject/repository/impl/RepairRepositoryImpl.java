@@ -294,4 +294,10 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         return true;
     }
 
+   
+    @Override
+    public List<Repair> findAll() {
+        return entityManager.createQuery("select r from repair r").getResultList();
+    }
+
 }

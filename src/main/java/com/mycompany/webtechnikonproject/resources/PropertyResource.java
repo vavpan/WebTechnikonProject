@@ -11,6 +11,7 @@ import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  *
@@ -29,6 +30,13 @@ public class PropertyResource {
     @Produces("application/json")
     public RestApiResult<PropertyDto> getProperty(@PathParam("propertyId") int propertyId) {
         return ownerService.getProperty(propertyId);
+    }
+
+    @GET
+    @Path("/properties")
+    @Produces("application/json")
+    public List<PropertyDto> getAllProperties() {
+        return ownerService.getAllProperties();
     }
 
     @PUT

@@ -189,4 +189,9 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         tTarget.setVat(tSource.getVat());
     }
 
+    @Override
+    public List<PropertyOwner> findAll() {
+        return entityManager.createQuery("select p from propertyowner p").getResultList();
+    }
+
 }

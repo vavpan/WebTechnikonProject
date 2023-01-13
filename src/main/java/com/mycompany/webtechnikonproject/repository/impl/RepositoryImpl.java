@@ -30,11 +30,7 @@ public abstract class RepositoryImpl<T extends PersistentClass> implements Repos
 
     public abstract Class<T> getClassType();
 
-    @Override
-    public List<T> findAll() {
-        return entityManager.createQuery("from " + getClassName()).getResultList();
-    }
-
+  
     @Override
     public T read(int id) {
         return entityManager.find(getClassType(), id);

@@ -104,6 +104,10 @@ public interface OwnerService {
 
     List<PropertyOwnerDto> getAllOwners();
 
+    List<PropertyDto> getAllProperties();
+
+    List<RepairDto> getAllRepairs();
+
     RestApiResult<PropertyDto> getProperty(int propertyId);
 
     RestApiResult<RepairDto> getRepair(int repairId);

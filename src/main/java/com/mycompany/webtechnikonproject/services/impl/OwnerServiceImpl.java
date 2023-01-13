@@ -223,6 +223,18 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    @Transactional
+    public List<PropertyDto> getAllProperties() {
+      return propertyRepository.findAll().stream().map(PropertyDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<RepairDto> getAllRepairs() {
+       return repairRepository.findAll().stream().map(RepairDto::new).collect(Collectors.toList());
+    }
+
+    @Override
     public RestApiResult<PropertyDto> getProperty(int propertyId) {
         PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
         return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");

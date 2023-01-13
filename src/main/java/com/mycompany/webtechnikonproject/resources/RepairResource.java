@@ -12,6 +12,7 @@ import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  *
@@ -30,6 +31,13 @@ public class RepairResource {
     @Produces("application/json")
     public RestApiResult<RepairDto> getRepair(@PathParam("repairId") int repairId) {
         return ownerService.getRepair(repairId);
+    }
+
+    @GET
+    @Path("repairs")
+    @Produces("application/json")
+    public List<RepairDto> getAllRepairs() {
+        return ownerService.getAllRepairs();
     }
 
     @PUT
