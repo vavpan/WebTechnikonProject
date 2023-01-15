@@ -2,6 +2,7 @@ package com.mycompany.webtechnikonproject.services.impl;
 
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
+import com.mycompany.webtechnikonproject.enums.Role;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
@@ -138,6 +139,7 @@ public class IoServiceImpl implements IoServices {
         String email;
         String username;
         String password;
+        Role role;
         List<PropertyOwner> propertyOwners = new ArrayList<>();
         for (String[] temp : list) {
             vat = Integer.parseInt(temp[0]);
@@ -148,7 +150,8 @@ public class IoServiceImpl implements IoServices {
             email = temp[5];
             username = temp[6];
             password = temp[7];
-            propertyOwners.add(new PropertyOwner(vat, name, surname, address, phoneNumber, email, username, password));
+            role = Role.valueOf(temp[8]);
+            propertyOwners.add(new PropertyOwner(vat, name, surname, address, phoneNumber, email, username, password,role));
             logger.info("The owner with VAT number {} has been loaded", vat);
         }
         return propertyOwners;

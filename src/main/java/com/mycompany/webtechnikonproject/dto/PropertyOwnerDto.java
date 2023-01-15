@@ -4,6 +4,7 @@
  */
 package com.mycompany.webtechnikonproject.dto;
 
+import com.mycompany.webtechnikonproject.enums.Role;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class PropertyOwnerDto {
     private String email;
     private String username;
     private String password;
+    private Role role;
 
     public PropertyOwnerDto(PropertyOwner propertyOwner) {
         this.id = propertyOwner.getId();
@@ -36,6 +38,7 @@ public class PropertyOwnerDto {
         this.email = propertyOwner.getEmail();
         this.username = propertyOwner.getUsername();
         this.password = propertyOwner.getPassword();
+        this.role = propertyOwner.getRole();
 
     }
 
@@ -50,6 +53,7 @@ public class PropertyOwnerDto {
         propertyOwner.setEmail(email);
         propertyOwner.setUsername(username);
         propertyOwner.setPassword(password);
+        propertyOwner.setRole(role);
         return propertyOwner;
 
     }
