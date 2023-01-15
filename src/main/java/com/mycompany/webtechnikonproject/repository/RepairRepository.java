@@ -13,6 +13,8 @@ public interface RepairRepository extends Repository<Repair> {
 
     Repair search(int id);
 
+    List<Repair> findAll();
+
     List<Repair> search(String submissionDate);
 
     void updatePropertyId(int repairId, int propertyId);
@@ -44,7 +46,5 @@ public interface RepairRepository extends Repository<Repair> {
     Repair findById(int id);
 
     boolean deleteRepair(int id);
-    
-
 
 }

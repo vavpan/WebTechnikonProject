@@ -10,6 +10,8 @@ public interface PropertyRepository extends Repository<Property> {
 
     List<Property> searchByVat(int vat);
 
+    List<Property> findAll();
+
     void updateOwnerVat(int propertyId, int vat);
 
     void updateAddress(int id, String address);

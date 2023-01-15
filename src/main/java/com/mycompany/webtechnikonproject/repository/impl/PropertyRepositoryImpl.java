@@ -28,7 +28,7 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
 
     {
         final ClassLoader loader = getClass().getClassLoader();
-        try ( InputStream config = loader.getResourceAsStream("sql.properties")) {
+        try (InputStream config = loader.getResourceAsStream("sql.properties")) {
             sqlCommands.load(config);
         } catch (IOException e) {
             throw new IOError(e);
@@ -55,20 +55,20 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
         return propertyOwners.get(0).getProperties();
     }
 
-@Override
-public void updateOwnerVat(int propertyId, int vat) {
-    Property property = entityManager.find(Property.class, propertyId);
-    try {
-        PropertyOwner propertyOwner = property.getOwner();
-        propertyOwner.setVat(vat);
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(propertyOwner);
-        transaction.commit();
-    } catch (Exception ex) {
-        logger.warn("OwnerVat can't be updated", ex);
+    @Override
+    public void updateOwnerVat(int propertyId, int vat) {
+        Property property = entityManager.find(Property.class, propertyId);
+        try {
+            PropertyOwner propertyOwner = property.getOwner();
+            propertyOwner.setVat(vat);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(propertyOwner);
+            transaction.commit();
+        } catch (Exception ex) {
+            logger.warn("OwnerVat can't be updated", ex);
+        }
     }
-}
 
     @Override
     public void updateAddress(int id, String address) {
@@ -83,36 +83,35 @@ public void updateOwnerVat(int propertyId, int vat) {
         }
     }
 
-@Override
-public void updateYearOfConstruction(int id, String year) {
-    Property property = entityManager.find(Property.class, id);
-    try {
-        property.setYearOfConstruction(year);
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(property);
-        transaction.commit();
-        logger.info("The year of construction of the property with E9 {} has been updated", property.getYearOfConstruction());
-    } catch (Exception e) {
-        logger.warn("Can't be upadated", e);
+    @Override
+    public void updateYearOfConstruction(int id, String year) {
+        Property property = entityManager.find(Property.class, id);
+        try {
+            property.setYearOfConstruction(year);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(property);
+            transaction.commit();
+            logger.info("The year of construction of the property with E9 {} has been updated", property.getYearOfConstruction());
+        } catch (Exception e) {
+            logger.warn("Can't be upadated", e);
+        }
     }
-}
 
-@Override
-public void updatePropertyType(int id, PropertyType propertyType) {
-    Property property = entityManager.find(Property.class, id);
-    try {
-        property.setPropertyType(propertyType);
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(property);
-        transaction.commit();
-        logger.info("The property type of the property with E9 {} has been updated", property.getYearOfConstruction());
-    } catch (Exception ex) {
-        logger.warn(" Can't be updated", ex);
+    @Override
+    public void updatePropertyType(int id, PropertyType propertyType) {
+        Property property = entityManager.find(Property.class, id);
+        try {
+            property.setPropertyType(propertyType);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(property);
+            transaction.commit();
+            logger.info("The property type of the property with E9 {} has been updated", property.getYearOfConstruction());
+        } catch (Exception ex) {
+            logger.warn(" Can't be updated", ex);
+        }
     }
-}
-
 
     @Override
     public boolean delete(int id) {
@@ -189,6 +188,11 @@ public void updatePropertyType(int id, PropertyType propertyType) {
         tTarget.setId(tSource.getId());
         tTarget.setPropertyType(tSource.getPropertyType());
         tTarget.setYearOfConstruction(tSource.getYearOfConstruction());
+    }
+
+    @Override
+    public List<Property> findAll() {
+        return entityManager.createQuery("select p from property p").getResultList();
     }
 
 }

@@ -6,10 +6,12 @@ package com.mycompany.webtechnikonproject.resources;
 
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
+import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  *
@@ -23,7 +25,6 @@ public class PropertyResource {
     @Inject
     private OwnerService ownerService;
 
-
     @GET
     @Path("/property/{propertyId}")
     @Produces("application/json")
@@ -31,11 +32,43 @@ public class PropertyResource {
         return ownerService.getProperty(propertyId);
     }
 
+    @GET
+    @Path("/properties")
+    @Produces("application/json")
+    public List<PropertyDto> getAllProperties() {
+        return ownerService.getAllProperties();
+    }
+
     @PUT
     @Path("/property/{propertyId}")
+    @Produces("application/json")
     @Consumes("application/json")
     public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, @PathParam("propertyId") int propertyId) {
         return ownerService.updateProperty(propertyDto, propertyId);
+    }
+
+    @PUT
+    @Path("/updateAddress/{propertyId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public PropertyDto updateProperty(@PathParam("propertyId") int propertyId, String address) {
+        return ownerService.updatePropertyAddress(propertyId, address);
+    }
+
+    @PUT
+    @Path("/yearOfConstruction/{propertyId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public PropertyDto updateYearOfConstruction(@PathParam("propertyId") int propertyId, String yearOfConstruction) {
+        return ownerService.updateYearOfConstruction(propertyId, yearOfConstruction);
+    }
+
+    @PUT
+    @Path("/updatePropertyType/{propertyId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public PropertyDto updatePropertyType(@PathParam("propertyId") int propertyId, PropertyType propertyType) {
+        return ownerService.updatePropertyType(propertyId, propertyType);
     }
 
     @POST
@@ -52,7 +85,5 @@ public class PropertyResource {
     public boolean deleteProperty(@PathParam("id") int id) {
         return ownerService.deleteProperty(id);
     }
-
-
 
 }

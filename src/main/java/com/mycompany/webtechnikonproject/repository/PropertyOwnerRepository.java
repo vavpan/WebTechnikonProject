@@ -9,6 +9,8 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
 
     PropertyOwner search(String email);
 
+    List<PropertyOwner> findAll();
+
     void updateAddress(int id, String address);
 
     void updateEmail(int id, String email);
