@@ -17,7 +17,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table
 public class PropertyOwner extends PersistentClass {
 
-    // id is in PersistenceClass
+    @Column(unique = true)
     private int vat;
     private String name;
     private String surname;
@@ -26,13 +26,13 @@ public class PropertyOwner extends PersistentClass {
 
     @Column(unique = true)
     private String email;
-   
+    @Column(unique = true)
     private String username;
     private String password;
     @OneToMany(mappedBy = "owner", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Property> properties;
-    
+
     private Role role;
 
     public PropertyOwner(int vat, String name, String surname, String address, String phoneNumber, String email, String username, String password, Role role) {

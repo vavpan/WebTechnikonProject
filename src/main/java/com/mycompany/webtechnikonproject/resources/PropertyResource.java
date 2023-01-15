@@ -39,6 +39,22 @@ public class PropertyResource {
         return ownerService.getAllProperties();
     }
 
+    @GET
+    @Path("/property/e9/{e9}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public PropertyDto returnOwnerByVat(@PathParam("e9") int e9) {
+        return ownerService.getPropertyByE9(e9);
+    }
+
+    @GET
+    @Path("/properties/ownerVat/{ownerVat}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<PropertyDto> returnPropertiesByOwnervat(@PathParam("ownerVat") int ownerVat) {
+        return ownerService.getPropertiesByOwnerVat(ownerVat);
+    }
+
     @PUT
     @Path("/property/{propertyId}")
     @Produces("application/json")

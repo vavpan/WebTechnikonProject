@@ -152,6 +152,8 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         query.setParameter("vat", vat);
         return query.getSingleResult();
     }
+    
+  
 
     @Override
     public PropertyOwner findByEmail(String email) {
@@ -193,5 +195,7 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
     public List<PropertyOwner> findAll() {
         return entityManager.createQuery("select p from propertyowner p").getResultList();
     }
+
+  
 
 }

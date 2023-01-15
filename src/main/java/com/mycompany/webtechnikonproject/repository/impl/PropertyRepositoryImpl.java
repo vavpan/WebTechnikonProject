@@ -195,4 +195,17 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
         return entityManager.createQuery("select p from property p").getResultList();
     }
 
+    @Override
+    public Property findbyE9(int e9) {
+        return entityManager.createQuery("SELECT p from property p where p.e9 =:e9", Property.class)
+                .setParameter("e9", e9).getSingleResult();
+    }
+
+    @Override
+    public List<Property> findE9s(int e9) {
+        return entityManager.createQuery("SELECT p FROM property p WHERE p.e9 = :e9", Property.class)
+                .setParameter("e9", e9)
+                .getResultList();
+    }
+
 }

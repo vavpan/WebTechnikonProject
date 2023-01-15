@@ -40,6 +40,22 @@ public class RepairResource {
         return ownerService.getAllRepairs();
     }
 
+    @GET
+    @Path("/repairs/submissionDate/{submissionDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<RepairDto> readRepairsBySubmissionDate(@PathParam("submissionDate") String submissionDate) {
+        return ownerService.getRepairsBySubmissionDate(submissionDate);
+    }
+
+    @GET
+    @Path("/repairs/owner/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<RepairDto> readRepairsOfOwner(@PathParam("id") int id) {
+        return ownerService.getRepairsOfOwner(id);
+    }
+
     @PUT
     @Path("repair/{repairId}")
     @Consumes("application/json")

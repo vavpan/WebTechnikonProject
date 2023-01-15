@@ -12,6 +12,10 @@ public interface PropertyRepository extends Repository<Property> {
 
     List<Property> findAll();
 
+    Property findbyE9(int e9);
+
+    List<Property> findE9s(int e9);
+
     void updateOwnerVat(int propertyId, int vat);
 
     void updateAddress(int id, String address);

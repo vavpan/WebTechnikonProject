@@ -4,6 +4,7 @@ import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Property;
+import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
@@ -19,6 +20,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +33,7 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
 
     {
         final ClassLoader loader = getClass().getClassLoader();
-        try ( InputStream config = loader.getResourceAsStream("sql.properties")) {
+        try (InputStream config = loader.getResourceAsStream("sql.properties")) {
             sqlCommands.load(config);
         } catch (IOException e) {
             throw new IOError(e);
@@ -129,8 +131,6 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
             logger.warn(" Can't be updated", ex);
         }
     }
-
-
 
     @Override
     public void updateStartDate(int id, String startDate) {
@@ -294,10 +294,27 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
         return true;
     }
 
-   
     @Override
     public List<Repair> findAll() {
         return entityManager.createQuery("select r from repair r").getResultList();
+    }
+
+    @Override
+    public List<Repair> findbyExactDate(String date) {
+        return entityManager.createQuery("SELECT r FROM repair r WHERE r.submissionDate = :submissionDate", Repair.class)
+                .setParameter("submissionDate", date).getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Repair> findRepairsOfOwner(int id) {
+        PropertyOwner propertyOwner = entityManager.find(PropertyOwner.class, id);
+        List<Property> properties = propertyOwner.getProperties();
+        List<Repair> repairs = new ArrayList<>();
+        for (Property property : properties) {
+            repairs.addAll(property.getRepairs());
+        }
+        return repairs;
     }
 
 }

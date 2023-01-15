@@ -110,6 +110,10 @@ public interface OwnerService {
 
     RestApiResult<PropertyDto> getProperty(int propertyId);
 
+    PropertyDto getPropertyByE9(int e9);
+
+    List<PropertyDto> getPropertiesByOwnerVat(int vat);
+
     RestApiResult<RepairDto> getRepair(int repairId);
 
     void registerNewPropertyDto(PropertyDto propertyDto);
@@ -145,6 +149,10 @@ public interface OwnerService {
     PropertyDto updatePropertyType(int propertyId, PropertyType propertyType);
 
     RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id);
+
+    List<RepairDto> getRepairsBySubmissionDate(String submissionDate);
+
+    List<RepairDto> getRepairsOfOwner(int id);
 
     RepairDto updateRepairType(int id, RepairType repairType);
 

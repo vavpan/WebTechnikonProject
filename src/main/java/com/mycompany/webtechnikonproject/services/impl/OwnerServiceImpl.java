@@ -225,13 +225,13 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     @Transactional
     public List<PropertyDto> getAllProperties() {
-      return propertyRepository.findAll().stream().map(PropertyDto::new).collect(Collectors.toList());
+        return propertyRepository.findAll().stream().map(PropertyDto::new).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public List<RepairDto> getAllRepairs() {
-       return repairRepository.findAll().stream().map(RepairDto::new).collect(Collectors.toList());
+        return repairRepository.findAll().stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
     @Override
@@ -519,6 +519,32 @@ public class OwnerServiceImpl implements OwnerService {
         repair.setActualEndDate(actualEndDate);
         repairRepository.create(repair);
         return new RepairDto(repair);
+    }
+
+    @Override
+    public PropertyDto getPropertyByE9(int e9) {
+        logger.info("Returning property with e9: " + e9);
+        return new PropertyDto(propertyRepository.findbyE9(e9));
+    }
+
+    @Transactional
+    @Override
+    public List<PropertyDto> getPropertiesByOwnerVat(int vat) {
+        PropertyOwner owner = propertyOwnerRepository.findByVat(vat);
+        logger.info("Returning properties that belong to owner with Vat : " + vat);
+        return owner.getProperties().stream().map(property -> new PropertyDto(property)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RepairDto> getRepairsBySubmissionDate(String submissionDate) {
+        logger.info("Returning all repairs with submission date: " + submissionDate);
+        return repairRepository.findbyExactDate(submissionDate).stream().map(RepairDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RepairDto> getRepairsOfOwner(int id) {
+        logger.info("Returning all repairs of owner with id : " + id);
+        return repairRepository.findRepairsOfOwner(id).stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
 }
