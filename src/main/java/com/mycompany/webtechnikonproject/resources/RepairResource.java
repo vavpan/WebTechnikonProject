@@ -9,6 +9,7 @@ import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.services.OwnerService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -29,6 +30,7 @@ public class RepairResource {
     @GET
     @Path("repair/{repairId}")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<RepairDto> getRepair(@PathParam("repairId") int repairId) {
         return ownerService.getRepair(repairId);
     }
@@ -36,6 +38,7 @@ public class RepairResource {
     @GET
     @Path("repairs")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public List<RepairDto> getAllRepairs() {
         return ownerService.getAllRepairs();
     }
@@ -44,6 +47,7 @@ public class RepairResource {
     @Path("/repairs/submissionDate/{submissionDate}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
     public List<RepairDto> readRepairsBySubmissionDate(@PathParam("submissionDate") String submissionDate) {
         return ownerService.getRepairsBySubmissionDate(submissionDate);
     }
@@ -52,6 +56,7 @@ public class RepairResource {
     @Path("/repairs/owner/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
     public List<RepairDto> readRepairsOfOwner(@PathParam("id") int id) {
         return ownerService.getRepairsOfOwner(id);
     }
@@ -59,6 +64,7 @@ public class RepairResource {
     @PUT
     @Path("repair/{repairId}")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, @PathParam("repairId") int repairId) {
         return ownerService.updateRepair(repairDto, repairId);
     }
@@ -67,6 +73,7 @@ public class RepairResource {
     @Path("repairType/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateRepairType(@PathParam("repairId") int repairId, RepairType repairType) {
         return ownerService.updateRepairType(repairId, repairType);
     }
@@ -83,6 +90,7 @@ public class RepairResource {
     @Path("submissionDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateSubmissionDate(@PathParam("repairId") int repairId, String submissionDate) {
         return ownerService.updateSubmissionDate(repairId, submissionDate);
     }
@@ -91,6 +99,7 @@ public class RepairResource {
     @Path("workDescription/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateWorkDescription(@PathParam("repairId") int repairId, String workDescription) {
         return ownerService.updateWorkDescription(repairId, workDescription);
     }
@@ -99,6 +108,7 @@ public class RepairResource {
     @Path("startDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateStartDate(@PathParam("repairId") int repairId, String startDate) {
         return ownerService.updateStartDate(repairId, startDate);
     }
@@ -107,6 +117,7 @@ public class RepairResource {
     @Path("endDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateEndDate(@PathParam("repairId") int repairId, String endDate) {
         return ownerService.updateEndDate(repairId, endDate);
     }
@@ -115,6 +126,7 @@ public class RepairResource {
     @Path("cost/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateCost(@PathParam("repairId") int repairId, double cost) {
         return ownerService.updateCost(repairId, cost);
     }
@@ -123,6 +135,7 @@ public class RepairResource {
     @Path("acceptance/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateAcceptance(@PathParam("repairId") int repairId, boolean acceptance) {
         return ownerService.updateAcceptance(repairId, acceptance);
     }
@@ -131,6 +144,7 @@ public class RepairResource {
     @Path("repairStatus/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateRepairStatus(@PathParam("repairId") int repairId, RepairStatus repairStatus) {
         return ownerService.updateRepairStatus(repairId, repairStatus);
     }
@@ -139,6 +153,7 @@ public class RepairResource {
     @Path("actualStartDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateActualDate(@PathParam("repairId") int repairId, String actualStartDate) {
         return ownerService.updateActualStartDate(repairId, actualStartDate);
     }
@@ -147,6 +162,7 @@ public class RepairResource {
     @Path("actualEndDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public RepairDto updateActualEndDate(@PathParam("repairId") int repairId, String actualEndDate) {
         return ownerService.updateActualEndDate(repairId, actualEndDate);
     }
@@ -155,6 +171,7 @@ public class RepairResource {
     @Path("/repair")
     @Produces("application/json")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public void createNewRepair(RepairDto repair) {
         ownerService.createRepair(repair);
     }
@@ -162,6 +179,7 @@ public class RepairResource {
     @DELETE
     @Path("repair/{repairId}")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public boolean deleteRepair(@PathParam("repairId") int repairId) {
         return ownerService.deleteRepair(repairId);
     }

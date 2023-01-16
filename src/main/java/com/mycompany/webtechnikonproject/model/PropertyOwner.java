@@ -1,6 +1,5 @@
 package com.mycompany.webtechnikonproject.model;
 
-import com.mycompany.webtechnikonproject.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -33,9 +32,9 @@ public class PropertyOwner extends PersistentClass {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Property> properties;
 
-    private Role role;
+    private String role;
 
-    public PropertyOwner(int vat, String name, String surname, String address, String phoneNumber, String email, String username, String password, Role role) {
+    public PropertyOwner(int vat, String name, String surname, String address, String phoneNumber, String email, String username, String password, String role) {
         this.vat = vat;
         this.name = name;
         this.surname = surname;

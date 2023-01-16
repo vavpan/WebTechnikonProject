@@ -26,11 +26,16 @@ import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -545,6 +550,16 @@ public class OwnerServiceImpl implements OwnerService {
     public List<RepairDto> getRepairsOfOwner(int id) {
         logger.info("Returning all repairs of owner with id : " + id);
         return repairRepository.findRepairsOfOwner(id).stream().map(RepairDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public PropertyOwnerDto getUser(String authorization) {
+        final String encodedUserPassword = authorization.replaceFirst("Basic" + " ", "");
+        String usernameAndPassword = new String(Base64.getDecoder().decode(encodedUserPassword.getBytes()));
+        final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
+        final String username = tokenizer.nextToken();
+        final String password = tokenizer.nextToken();
+        return new PropertyOwnerDto(propertyOwnerRepository.findByUserameAndPass(username, password));
     }
 
 }

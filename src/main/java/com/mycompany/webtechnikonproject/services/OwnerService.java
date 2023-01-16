@@ -11,7 +11,9 @@ import com.mycompany.webtechnikonproject.exceptions.PropertyException;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
+import jakarta.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerService {
 
@@ -175,5 +177,7 @@ public interface OwnerService {
     RepairDto updateActualStartDate(int id, String actualStartDate);
 
     RepairDto updateActualEndDate(int id, String actualEndDate);
+
+    PropertyOwnerDto getUser(String authorization);
 
 }

@@ -4,6 +4,7 @@ import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.services.OwnerService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -21,6 +22,7 @@ public class OwnerResource {
     @GET
     @Path("owner/{ownerId}")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwner(@PathParam("ownerId") int ownerId) {
         return ownerService.getOwner(ownerId);
 
@@ -29,6 +31,7 @@ public class OwnerResource {
     @GET
     @Path("owner/vat/{vat}")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwnerByVat(@PathParam("vat") int vat) {
         return ownerService.getOwnerByVat(vat);
 
@@ -37,6 +40,7 @@ public class OwnerResource {
     @GET
     @Path("owner/email/{email}")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("email") String email) {
         return ownerService.getOwnerByEmail(email);
 
@@ -45,6 +49,7 @@ public class OwnerResource {
     @GET
     @Path("owners")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public List<PropertyOwnerDto> getAllOwners() {
         return ownerService.getAllOwners();
 
@@ -53,6 +58,7 @@ public class OwnerResource {
     @PUT
     @Path("owner/{ownerId}")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto ownerDto, @PathParam("ownerId") int ownerId) {
         return ownerService.updateOwner(ownerDto, ownerId);
     }
@@ -61,6 +67,7 @@ public class OwnerResource {
     @Path("/updateAddress/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateAddress(@PathParam("id") int id, String newAddress) {
         return ownerService.updateAddress(id, newAddress);
     }
@@ -69,6 +76,7 @@ public class OwnerResource {
     @Path("/updateEmail/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateEmail(@PathParam("id") int id, String email) {
         return ownerService.updateEmail(id, email);
     }
@@ -77,6 +85,7 @@ public class OwnerResource {
     @Path("/updateName/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateName(@PathParam("id") int id, String name) {
         return ownerService.updateName(id, name);
     }
@@ -85,6 +94,7 @@ public class OwnerResource {
     @Path("/updateSurname/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateSurname(@PathParam("id") int id, String surname) {
         return ownerService.updateSurname(id, surname);
     }
@@ -93,6 +103,7 @@ public class OwnerResource {
     @Path("/updatePassword/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updatePassword(@PathParam("id") int id, String password) {
         return ownerService.updatePassword(id, password);
     }
@@ -101,6 +112,7 @@ public class OwnerResource {
     @Path("/updatePhoneNumber/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updatePhoneNumber(@PathParam("id") int id, String phoneNumber) {
         return ownerService.updatePhoneNumber(id, phoneNumber);
     }
@@ -109,6 +121,7 @@ public class OwnerResource {
     @Path("/updateUsername/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateUsername(@PathParam("id") int id, String username) {
         return ownerService.updateUsername(id, username);
     }
@@ -117,6 +130,7 @@ public class OwnerResource {
     @Path("/updateVat/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateVat(@PathParam("id") int id, String vatString) {
         int vat = Integer.parseInt(vatString);
         return ownerService.updateVat(id, vat);
@@ -126,6 +140,7 @@ public class OwnerResource {
     @Path("owner")
     @Produces("application/json")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public void createNewOwner(PropertyOwnerDto owner) {
         ownerService.createPropertyOwner(owner);
     }
@@ -134,6 +149,7 @@ public class OwnerResource {
     @Path("owner/{ownerId}")
     @Produces("application/json")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public boolean deleteOwner(@PathParam("ownerId") int ownerId) {
         return ownerService.deletePropertyOwner(ownerId);
     }

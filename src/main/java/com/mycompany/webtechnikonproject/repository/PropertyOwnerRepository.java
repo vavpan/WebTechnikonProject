@@ -1,5 +1,6 @@
 package com.mycompany.webtechnikonproject.repository;
 
+import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
     // REST API METHODS
     boolean deleteOwner(int id);
 
+    List<PropertyOwner> findUsernames(String username);
+
+    String checkRole(String username, String password);
+
+    PropertyOwner findByUserameAndPass(String username, String password);
 
 
 }

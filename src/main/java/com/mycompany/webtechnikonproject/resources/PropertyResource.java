@@ -8,6 +8,7 @@ import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.services.OwnerService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -28,6 +29,7 @@ public class PropertyResource {
     @GET
     @Path("/property/{propertyId}")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyDto> getProperty(@PathParam("propertyId") int propertyId) {
         return ownerService.getProperty(propertyId);
     }
@@ -35,6 +37,7 @@ public class PropertyResource {
     @GET
     @Path("/properties")
     @Produces("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public List<PropertyDto> getAllProperties() {
         return ownerService.getAllProperties();
     }
@@ -43,6 +46,7 @@ public class PropertyResource {
     @Path("/property/e9/{e9}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyDto returnOwnerByVat(@PathParam("e9") int e9) {
         return ownerService.getPropertyByE9(e9);
     }
@@ -51,6 +55,7 @@ public class PropertyResource {
     @Path("/properties/ownerVat/{ownerVat}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
     public List<PropertyDto> returnPropertiesByOwnervat(@PathParam("ownerVat") int ownerVat) {
         return ownerService.getPropertiesByOwnerVat(ownerVat);
     }
@@ -59,6 +64,7 @@ public class PropertyResource {
     @Path("/property/{propertyId}")
     @Produces("application/json")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, @PathParam("propertyId") int propertyId) {
         return ownerService.updateProperty(propertyDto, propertyId);
     }
@@ -67,6 +73,7 @@ public class PropertyResource {
     @Path("/updateAddress/{propertyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyDto updateProperty(@PathParam("propertyId") int propertyId, String address) {
         return ownerService.updatePropertyAddress(propertyId, address);
     }
@@ -75,6 +82,7 @@ public class PropertyResource {
     @Path("/yearOfConstruction/{propertyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyDto updateYearOfConstruction(@PathParam("propertyId") int propertyId, String yearOfConstruction) {
         return ownerService.updateYearOfConstruction(propertyId, yearOfConstruction);
     }
@@ -83,6 +91,7 @@ public class PropertyResource {
     @Path("/updatePropertyType/{propertyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
     public PropertyDto updatePropertyType(@PathParam("propertyId") int propertyId, PropertyType propertyType) {
         return ownerService.updatePropertyType(propertyId, propertyType);
     }
@@ -91,6 +100,7 @@ public class PropertyResource {
     @Path("property")
     @Produces("application/json")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public void createNewProperty(PropertyDto property) {
         ownerService.registerNewPropertyDto(property);
     }
@@ -98,6 +108,7 @@ public class PropertyResource {
     @DELETE
     @Path("property/{id}")
     @Consumes("application/json")
+    @RolesAllowed({"ADMIN", "USER"})
     public boolean deleteProperty(@PathParam("id") int id) {
         return ownerService.deleteProperty(id);
     }

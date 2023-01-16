@@ -4,7 +4,6 @@
  */
 package com.mycompany.webtechnikonproject.dto;
 
-import com.mycompany.webtechnikonproject.enums.Role;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,7 @@ public class PropertyOwnerDto {
     private String email;
     private String username;
     private String password;
-    private Role role;
+    private String role;
 
     public PropertyOwnerDto(PropertyOwner propertyOwner) {
         this.id = propertyOwner.getId();

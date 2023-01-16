@@ -1,5 +1,6 @@
 package com.mycompany.webtechnikonproject.repository.impl;
 
+import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
@@ -9,6 +10,7 @@ import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -152,8 +154,6 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         query.setParameter("vat", vat);
         return query.getSingleResult();
     }
-    
-  
 
     @Override
     public PropertyOwner findByEmail(String email) {
@@ -196,6 +196,32 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
         return entityManager.createQuery("select p from propertyowner p").getResultList();
     }
 
-  
+    @Override
+    public List<PropertyOwner> findUsernames(String username) {
+        return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.username = :username", PropertyOwner.class)
+                .setParameter("username", username)
+                .getResultList();
+    }
+
+    @Override
+    public String checkRole(String username, String password) {
+        try {
+            return entityManager.createQuery("SELECT p.role from propertyowner p where username=:u1 and password=:u2")
+                    .setParameter("u1", username)
+                    .setParameter("u2", password)
+                    .getSingleResult()
+                    .toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Override
+    public PropertyOwner findByUserameAndPass(String username, String password) {
+        return entityManager.createQuery("select u from propertyowner u where username=:u1 and password=:u2", PropertyOwner.class)
+                .setParameter("u1", username)
+                .setParameter("u2", password)
+                .getSingleResult();
+    }
 
 }
