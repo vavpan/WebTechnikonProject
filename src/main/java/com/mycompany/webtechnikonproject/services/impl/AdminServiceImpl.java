@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
 
     {
         final ClassLoader loader = getClass().getClassLoader();
-        try ( InputStream config = loader.getResourceAsStream("sql.properties")) {
+        try (InputStream config = loader.getResourceAsStream("sql.properties")) {
             sqlCommands.load(config);
         } catch (IOException e) {
             throw new IOError(e);
@@ -87,6 +87,14 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public List<Repair> displayActualDatesOfPendingRepairs() {
         String jql = "SELECT r.id,r.actualStartDate,r.actualEndDate FROM repair r WHERE r.repairStatus = 'PENDING'";
+        Query query = entityManager.createQuery(jql);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Repair> getOnGoing() {
+        String jql = "SELECT r FROM repair r WHERE r.repairStatus = 'IN_PROGRESS'";
         Query query = entityManager.createQuery(jql);
         return query.getResultList();
     }

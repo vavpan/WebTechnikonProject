@@ -98,7 +98,7 @@ public class PropertyResource {
 
     @POST
     @Path("property")
-    @Produces("application/json")
+    @Produces("application/json") 
     @Consumes("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public void createNewProperty(PropertyDto property) {

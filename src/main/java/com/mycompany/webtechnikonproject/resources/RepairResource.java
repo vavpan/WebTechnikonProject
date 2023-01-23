@@ -9,6 +9,7 @@ import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.services.OwnerService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -52,7 +53,7 @@ public class RepairResource {
         return ownerService.getRepairsBySubmissionDate(submissionDate);
     }
 
-    @GET
+    @GET 
     @Path("/repairs/owner/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -157,7 +158,7 @@ public class RepairResource {
     public RepairDto updateActualDate(@PathParam("repairId") int repairId, String actualStartDate) {
         return ownerService.updateActualStartDate(repairId, actualStartDate);
     }
-
+ 
     @PUT
     @Path("actualEndDate/{repairId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -171,7 +172,7 @@ public class RepairResource {
     @Path("/repair")
     @Produces("application/json")
     @Consumes("application/json")
-    @RolesAllowed({"ADMIN", "USER"})
+    @PermitAll
     public void createNewRepair(RepairDto repair) {
         ownerService.createRepair(repair);
     }

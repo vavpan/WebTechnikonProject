@@ -34,6 +34,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import java.util.Base64;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
@@ -205,8 +206,17 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public RestApiResult<PropertyOwnerDto> getOwner(int ownerId) {
-        PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findById(ownerId));
-        return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+        try {
+            PropertyOwner owner = propertyOwnerRepository.findById(ownerId);
+            if (owner != null) {
+                PropertyOwnerDto ownerDto = new PropertyOwnerDto(owner);
+                return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+            } else {
+                throw new Exception("Owner not found");
+            }
+        } catch (Exception e) {
+            return new RestApiResult<PropertyOwnerDto>(null, 1, e.getMessage());
+        }
     }
 
     @Override
@@ -289,6 +299,7 @@ public class OwnerServiceImpl implements OwnerService {
             existingOwner.setEmail(propertyOwnerDto.getEmail());
             existingOwner.setUsername(propertyOwnerDto.getUsername());
             existingOwner.setPassword(propertyOwnerDto.getPassword());
+            existingOwner.setRole(propertyOwnerDto.getRole());
             entityManager.getTransaction().begin();
             entityManager.merge(existingOwner);
             entityManager.getTransaction().commit();

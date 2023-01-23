@@ -37,13 +37,21 @@ public class AdminResource {
     }
 
     @GET
+    @Path("onGoingRepairs")
+    @Produces("application/json")
+    public List<RepairDto> getOnGoingRepairs() {
+        List<Repair> repairs = adminService.getOnGoing();
+        return repairs.stream().map(RepairDto::new).collect(Collectors.toList());
+    }
+
+    @GET
     @Path("actualDatesPendingRepairs")
     @Produces("application/json")
     public List<Repair> getActualDatesOfPendingRepairs() {
         List<Repair> repairs = adminService.displayActualDatesOfPendingRepairs();
         return repairs;
 
-    }
+    } 
 
     @PUT
     @Path("proposeCostsAndDates/{repairId}")
@@ -53,3 +61,4 @@ public class AdminResource {
     }
 
 }
+ 

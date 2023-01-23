@@ -15,6 +15,10 @@ public interface AdminService {
      * @return
      */
    List<Repair> getPendingRepairs();
+   
+   
+   List<Repair> getOnGoing();
+   
 
     /**
      * This method updates the cost value to the proposed by the admin
