@@ -197,6 +197,20 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
     }
 
     @Override
+    public List<PropertyOwner> findEmails(String email) {
+        return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.email = :email", PropertyOwner.class)
+                .setParameter("email", email)
+                .getResultList();
+    }
+
+    @Override
+    public List<PropertyOwner> findVats(int vat) {
+        return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.vat = :vat", PropertyOwner.class)
+                .setParameter("vat", vat)
+                .getResultList();
+    }
+
+    @Override
     public List<PropertyOwner> findUsernames(String username) {
         return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.username = :username", PropertyOwner.class)
                 .setParameter("username", username)

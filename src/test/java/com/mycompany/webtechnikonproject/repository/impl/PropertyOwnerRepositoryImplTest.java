@@ -9,18 +9,19 @@
 //import static org.junit.jupiter.api.Assertions.assertNull;
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.when;
+//import static org.mockito.Mockito.mock;
 //
 //class PropertyOwnerRepositoryImplTest {
 //
 //    private PropertyOwnerRepository propertyOwnerRepository;
 //    private EntityManager entityManager;
 //
-////    @BeforeEach
-////    void setUp() {
-////        entityManager = mock(EntityManager.class);
-////        propertyOwnerRepository = new PropertyOwnerRepositoryImpl(entityManager);
-////    }
-//
+//    @BeforeEach
+//    void setUp() {
+//        entityManager = mock(EntityManager.class);
+//        propertyOwnerRepository = new PropertyOwnerRepositoryImpl();
+//    }
+//   
 //    @Test
 //    void searchWhenIdIsInvalidThenReturnNull() {
 //        int id = -1;
@@ -28,11 +29,10 @@
 //        assertNull(propertyOwner);
 //    }
 //
-//
 //    @Test
 //    void updateAddressWhenIdIsValid() {
-//        PropertyOwner propertyOwner =
-//                new PropertyOwner(
+//        PropertyOwner propertyOwner
+//                = new PropertyOwner(
 //                        123456789,
 //                        "John",
 //                        "Smith",
@@ -40,7 +40,8 @@
 //                        "6912345678",
 //                        "johnsmith@gmail.com",
 //                        "johnsmith",
-//                        "12345");
+//                        "12345",
+//                        "ADMIN");
 //        propertyOwner.setId(1);
 //        when(entityManager.find(PropertyOwner.class, 1)).thenReturn(propertyOwner);
 //        propertyOwnerRepository.updateAddress(1, "Thessaloniki");
@@ -49,8 +50,8 @@
 //
 //    @Test
 //    void updatePasswordWhenIdIsValid() {
-//        PropertyOwner propertyOwner =
-//                new PropertyOwner(
+//        PropertyOwner propertyOwner
+//                = new PropertyOwner(
 //                        123456789,
 //                        "John",
 //                        "Doe",
@@ -58,7 +59,8 @@
 //                        "6912345678",
 //                        "john@doe.com",
 //                        "johndoe",
-//                        "12345");
+//                        "12345",
+//                        "ADMIN");
 //        propertyOwner.setId(1);
 //        when(entityManager.find(PropertyOwner.class, 1)).thenReturn(propertyOwner);
 //        propertyOwnerRepository.updatePassword(1, "54321");

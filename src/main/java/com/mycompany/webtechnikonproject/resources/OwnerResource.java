@@ -25,7 +25,7 @@ public class OwnerResource {
     @Produces("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwner(@PathParam("ownerId") int ownerId) {
-        return ownerService.getOwner(ownerId);
+        return ownerService.getOwner(ownerId); 
 
     }
 
@@ -143,8 +143,8 @@ public class OwnerResource {
     @Produces("application/json")
     @Consumes("application/json")
     @PermitAll
-    public void createNewOwner(PropertyOwnerDto owner) {
-        ownerService.createPropertyOwner(owner);
+    public PropertyOwnerDto createNewOwner(PropertyOwnerDto owner) {
+        return ownerService.createPropertyOwner(owner);
     }
 
     @DELETE

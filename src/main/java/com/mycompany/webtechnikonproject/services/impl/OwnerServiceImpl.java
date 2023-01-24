@@ -26,16 +26,11 @@ import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.Response;
 import java.util.Base64;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
@@ -200,8 +195,29 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void createPropertyOwner(PropertyOwnerDto ownerDto) {
+    public PropertyOwnerDto createPropertyOwner(PropertyOwnerDto ownerDto) {
+        PropertyOwner owner = ownerDto.asOwner();
+        List<PropertyOwner> emails = propertyOwnerRepository.findEmails(owner.getEmail());
+        if (!emails.isEmpty()) {
+            logger.warn("Email already in use by another property owner");
+            throw new IllegalArgumentException("Email already in use by another property owner");
+        }
+
+        List<PropertyOwner> vats = propertyOwnerRepository.findVats(owner.getVat());
+        if (!vats.isEmpty()) {
+            logger.warn("User with this Vat already exists");
+            throw new IllegalArgumentException("User with this Vat already exists");
+        }
+
+        List<PropertyOwner> usernames = propertyOwnerRepository.findUsernames(owner.getUsername());
+        if (!usernames.isEmpty()) {
+            logger.warn("Email already in use by another property owner");
+            throw new IllegalArgumentException("Username already in use by another property owner");
+        }
+
         propertyOwnerRepository.createPropertyOwner(ownerDto.asOwner());
+        logger.info("Adding new owner: " + ownerDto.toString());
+        return new PropertyOwnerDto(owner);
     }
 
     @Override
@@ -222,11 +238,13 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat) {
         PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByVat(vat));
+        logger.info("Returning owner with vat : " + vat);
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
     }
 
     @Override
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email) {
+        logger.info("Getting owner with e-mail: " + email);
         PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByEmail(email));
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
     }
@@ -234,18 +252,21 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     @Transactional
     public List<PropertyOwnerDto> getAllOwners() {
+        logger.info("Getting all owners");
         return propertyOwnerRepository.findAll().stream().map(PropertyOwnerDto::new).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public List<PropertyDto> getAllProperties() {
+        logger.info("Getting all properties");
         return propertyRepository.findAll().stream().map(PropertyDto::new).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public List<RepairDto> getAllRepairs() {
+        logger.info("Getting all repairs");
         return repairRepository.findAll().stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
@@ -400,141 +421,247 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public PropertyOwnerDto updatePhoneNumber(int id, String phoneNumber) {
-        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
-        propertyOwner.setPhoneNumber(phoneNumber);
-        propertyOwnerRepository.create(propertyOwner);
-        return new PropertyOwnerDto(propertyOwner);
+        try {
+            PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+            propertyOwner.setPhoneNumber(phoneNumber);
+            logger.info("Phone number of owner with id " + id + " will change to " + phoneNumber);
+            propertyOwnerRepository.create(propertyOwner);
+            return new PropertyOwnerDto(propertyOwner);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public PropertyOwnerDto updateUsername(int id, String username) {
-        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
-        propertyOwner.setUsername(username);
-        propertyOwnerRepository.create(propertyOwner);
-        return new PropertyOwnerDto(propertyOwner);
+        try {
+            PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+            propertyOwner.setUsername(username);
+            logger.info("Username of owner with id " + id + " will change to " + username);
+            propertyOwnerRepository.create(propertyOwner);
+            return new PropertyOwnerDto(propertyOwner);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public PropertyOwnerDto updateVat(int id, int vat) {
-        PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
-        propertyOwner.setVat(vat);
-        propertyOwnerRepository.create(propertyOwner);
-        return new PropertyOwnerDto(propertyOwner);
+        try {
+            PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
+            propertyOwner.setVat(vat);
+            logger.info("Vat of owner with id " + id + " will change to " + vat);
+            propertyOwnerRepository.create(propertyOwner);
+            return new PropertyOwnerDto(propertyOwner);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public PropertyDto updatePropertyAddress(int propertyId, String address) {
-        Property property = propertyRepository.read(propertyId);
-        property.setAddress(address);
-        propertyRepository.create(property);
-        return new PropertyDto(property);
+        try {
+            Property property = propertyRepository.read(propertyId);
+            property.setAddress(address);
+            logger.info("Address of property  with id " + propertyId + " will change to " + address);
+            propertyRepository.create(property);
+            return new PropertyDto(property);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
 
     }
 
     @Override
     public PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction) {
-        Property property = propertyRepository.read(propertyId);
-        property.setYearOfConstruction(yearOfConstruction);
-        propertyRepository.create(property);
-        return new PropertyDto(property);
+        try {
+            Property property = propertyRepository.read(propertyId);
+            property.setYearOfConstruction(yearOfConstruction);
+            logger.info("Year of construction  of property  with id " + propertyId + " will change to " + yearOfConstruction);
+            propertyRepository.create(property);
+            return new PropertyDto(property);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
 
     }
 
     @Override
     public PropertyDto updatePropertyType(int propertyId, PropertyType propertyType) {
-        Property property = propertyRepository.read(propertyId);
-        property.setPropertyType(propertyType);
-        propertyRepository.create(property);
-        return new PropertyDto(property);
+        try {
+            Property property = propertyRepository.read(propertyId);
+            property.setPropertyType(propertyType);
+            logger.info("PropertyType of property  with id " + propertyId + " will change to " + propertyType);
+            propertyRepository.create(property);
+            return new PropertyDto(property);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
 
     }
 
     @Override
     public RepairDto updateRepairType(int id, RepairType repairType) {
-        Repair repair = repairRepository.read(id);
-        repair.setRepairType(repairType);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setRepairType(repairType);
+            logger.info("RepairType of repair  with id " + id + " will change to " + repairType);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateRepairDescription(int id, String repairDescription) {
-        Repair repair = repairRepository.read(id);
-        repair.setRepairDescription(repairDescription);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setRepairDescription(repairDescription);
+            logger.info("RepairDescription of repair  with id " + id + " will change to " + repairDescription);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateSubmissionDate(int id, String submissionDate) {
-        Repair repair = repairRepository.read(id);
-        repair.setSubmissionDate(submissionDate);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setSubmissionDate(submissionDate);
+            logger.info("SubmissionDate of repair  with id " + id + " will change to " + submissionDate);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateWorkDescription(int id, String workDescription) {
-        Repair repair = repairRepository.read(id);
-        repair.setWorkDescription(workDescription);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setWorkDescription(workDescription);
+            logger.info("Work description of repair  with id " + id + " will change to " + workDescription);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateStartDate(int id, String startDate) {
-        Repair repair = repairRepository.read(id);
-        repair.setStartDate(startDate);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setStartDate(startDate);
+            logger.info("Start date of repair  with id " + id + " will change to " + startDate);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
+
     }
 
     @Override
     public RepairDto updateEndDate(int id, String endDate) {
-        Repair repair = repairRepository.read(id);
-        repair.setEndDate(endDate);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setEndDate(endDate);
+            logger.info("End date of repair  with id " + id + " will change to " + endDate);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
+
     }
 
     @Override
     public RepairDto updateCost(int id, double cost) {
-        Repair repair = repairRepository.read(id);
-        repair.setCost(cost);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setCost(cost);
+            repairRepository.create(repair);
+            logger.info("Cost of repair  with id " + id + " will change to " + cost);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
+
     }
 
     @Override
     public RepairDto updateAcceptance(int id, boolean acceptance) {
-        Repair repair = repairRepository.read(id);
-        repair.setAcceptance(acceptance);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setAcceptance(acceptance);
+            logger.info("Acceptance of repair  with id " + id + " will change to " + acceptance);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
+
     }
 
     @Override
     public RepairDto updateRepairStatus(int id, RepairStatus repairStatus) {
-        Repair repair = repairRepository.read(id);
-        repair.setRepairStatus(repairStatus);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setRepairStatus(repairStatus);
+            logger.info("RepairStatus of repair  with id " + id + " will change to " + repairStatus);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateActualStartDate(int id, String actualStartDate) {
-        Repair repair = repairRepository.read(id);
-        repair.setActualStartDate(actualStartDate);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setActualStartDate(actualStartDate);
+            logger.info("ActualStartDate of repair  with id " + id + " will change to " + actualStartDate);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override
     public RepairDto updateActualEndDate(int id, String actualEndDate) {
-        Repair repair = repairRepository.read(id);
-        repair.setActualEndDate(actualEndDate);
-        repairRepository.create(repair);
-        return new RepairDto(repair);
+        try {
+            Repair repair = repairRepository.read(id);
+            repair.setActualEndDate(actualEndDate);
+            logger.info("ActualEndDate of repair  with id " + id + " will change to " + actualEndDate);
+            repairRepository.create(repair);
+            return new RepairDto(repair);
+        } catch (Exception e) {
+            logger.error("Not found");
+        }
+        return null;
     }
 
     @Override

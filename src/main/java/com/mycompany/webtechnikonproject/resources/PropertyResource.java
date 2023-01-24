@@ -47,7 +47,7 @@ public class PropertyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"ADMIN", "USER"})
-    public PropertyDto returnOwnerByVat(@PathParam("e9") int e9) {
+    public PropertyDto returnOwnerByE9(@PathParam("e9") int e9) {
         return ownerService.getPropertyByE9(e9);
     }
 

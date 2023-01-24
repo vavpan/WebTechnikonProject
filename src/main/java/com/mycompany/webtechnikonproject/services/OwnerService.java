@@ -94,7 +94,7 @@ public interface OwnerService {
     boolean deleteProperty(int id);
 
     // REST API METHODS
-    void createPropertyOwner(PropertyOwnerDto ownerDto);
+    PropertyOwnerDto createPropertyOwner(PropertyOwnerDto ownerDto);
 
     void createRepair(RepairDto repair);
 

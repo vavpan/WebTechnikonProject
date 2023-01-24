@@ -35,11 +35,14 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
     // REST API METHODS
     boolean deleteOwner(int id);
 
+    List<PropertyOwner> findEmails(String email);
+
+    List<PropertyOwner> findVats(int vat);
+
     List<PropertyOwner> findUsernames(String username);
 
     String checkRole(String username, String password);
 
     PropertyOwner findByUserameAndPass(String username, String password);
-
 
 }
