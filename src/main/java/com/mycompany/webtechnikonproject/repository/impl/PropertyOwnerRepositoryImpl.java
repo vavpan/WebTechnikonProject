@@ -238,4 +238,11 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
                 .getSingleResult();
     }
 
+    @Override
+    public List<PropertyOwner> checkEmails(String email) {
+            return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.email = :email", PropertyOwner.class)
+            .setParameter("email", email)
+            .getResultList();
+    }
+
 }

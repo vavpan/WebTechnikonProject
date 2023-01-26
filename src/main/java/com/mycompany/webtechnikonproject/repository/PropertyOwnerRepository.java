@@ -15,6 +15,8 @@ public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
     void updateAddress(int id, String address);
 
     void updateEmail(int id, String email);
+    
+    List<PropertyOwner> checkEmails(String email);
 
     void updatePassword(int id, String password);
 

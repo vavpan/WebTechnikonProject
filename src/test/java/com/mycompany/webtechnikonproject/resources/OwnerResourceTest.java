@@ -8,11 +8,14 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.Collectors;
+import junit.framework.Assert;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -34,6 +37,7 @@ public class OwnerResourceTest {
 
         final RestApiResult<PropertyOwnerDto> result = ownerResourceUnderTest.getOwner(0);
 
+      
         assertEquals(expectedResult.getData(), result.getData());
         assertEquals(expectedResult.getDescription(), result.getDescription());
     }
@@ -83,7 +87,7 @@ public class OwnerResourceTest {
     @Test
     public void testUpdateEmail() {
         final int ownerId = 1;
-        final String email = "new@email.gr";
+        final String email = "test@email.gr";
         final PropertyOwnerDto expectedResult = new PropertyOwnerDto(new PropertyOwner(ownerId, "name", "surname", "address", "phoneNumber", email, "username", "password", "role"));
         when(mockOwnerService.updateEmail(ownerId, email)).thenReturn(expectedResult);
 
@@ -98,6 +102,14 @@ public class OwnerResourceTest {
         assertEquals(expectedResult.getUsername(), result.getUsername());
         assertEquals(expectedResult.getPassword(), result.getPassword());
         assertEquals(expectedResult.getRole(), result.getRole());
+    }
+
+    @Test
+    public void testDeleteOwner() {
+        when(mockOwnerService.deletePropertyOwner(0)).thenReturn(true);
+        boolean result = ownerResourceUnderTest.deleteOwner(0);
+        assertTrue(result);
+        verify(mockOwnerService).deletePropertyOwner(0);
     }
 
 }
