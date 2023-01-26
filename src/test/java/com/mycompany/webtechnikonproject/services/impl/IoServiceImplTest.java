@@ -4,7 +4,7 @@ package com.mycompany.webtechnikonproject.services.impl;
 import com.mycompany.webtechnikonproject.services.IoServices;
 import java.util.List;
 import static junit.framework.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IoServiceImplTest {
 

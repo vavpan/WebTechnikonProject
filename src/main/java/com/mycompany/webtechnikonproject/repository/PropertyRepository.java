@@ -2,6 +2,7 @@ package com.mycompany.webtechnikonproject.repository;
 
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.model.Property;
+import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 public interface PropertyRepository extends Repository<Property> {
@@ -13,6 +14,8 @@ public interface PropertyRepository extends Repository<Property> {
     List<Property> findAll();
 
     Property findbyE9(int e9);
+
+    boolean checkE9IfExists(int e9);
 
     List<Property> findE9s(int e9);
 

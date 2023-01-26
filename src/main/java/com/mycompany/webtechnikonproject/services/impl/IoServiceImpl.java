@@ -170,7 +170,7 @@ public class IoServiceImpl implements IoServices {
             address = temp[1];
             yearOfConstruction = temp[2];
             propertyType = PropertyType.valueOf(temp[3]);
-            properties.add(new Property(e9, address, yearOfConstruction, propertyType));
+            properties.add(new Property(e9, 9, address, yearOfConstruction, propertyType));
             logger.info("The property with E9 number {} has been loaded", e9);
         }
 

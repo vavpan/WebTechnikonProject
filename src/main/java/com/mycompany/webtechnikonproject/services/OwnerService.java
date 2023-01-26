@@ -114,6 +114,8 @@ public interface OwnerService {
 
     PropertyDto getPropertyByE9(int e9);
 
+    boolean checkE9(int e9);
+
     List<PropertyDto> getPropertiesByOwnerVat(int vat);
 
     RestApiResult<RepairDto> getRepair(int repairId);

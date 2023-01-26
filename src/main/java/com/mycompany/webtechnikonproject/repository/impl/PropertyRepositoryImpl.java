@@ -9,10 +9,16 @@ import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.inject.Inject;
+import jakarta.json.Json;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.InternalServerErrorException;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -197,8 +203,27 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
 
     @Override
     public Property findbyE9(int e9) {
-        return entityManager.createQuery("SELECT p from property p where p.e9 =:e9", Property.class)
-                .setParameter("e9", e9).getSingleResult();
+        try {
+            return entityManager.createQuery("SELECT p from property p where p.e9 =:e9", Property.class)
+                    .setParameter("e9", e9).getSingleResult();
+        } catch (NoResultException ex) {
+            throw new NotFoundException("Property with e9 " + e9 + " not found");
+        } catch (NonUniqueResultException ex) {
+            throw new InternalServerErrorException("Multiple properties found with e9 " + e9);
+        }
+    }
+
+    @Override
+    public boolean checkE9IfExists(int e9) {
+        try {
+            entityManager.createQuery("SELECT p from property p where p.e9 =:e9", Property.class)
+                    .setParameter("e9", e9).getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            return false;
+        } catch (NonUniqueResultException ex) {
+            throw new InternalServerErrorException("Multiple properties found with e9 " + e9);
+        }
     }
 
     @Override

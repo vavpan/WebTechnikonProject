@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+    <deployment>
+        <exclude-subsystem>
+            <subsystem name="logging"/>
+        </exclude-subsystem>
+    </deployment>
+</jboss-deployment-structure>

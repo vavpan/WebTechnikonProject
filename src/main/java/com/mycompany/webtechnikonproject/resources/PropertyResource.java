@@ -52,6 +52,15 @@ public class PropertyResource {
     }
 
     @GET
+    @Path("/property/checkE9/{e9}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
+    public boolean checkE9(@PathParam("e9") int e9) {
+        return ownerService.checkE9(e9);
+    }
+
+    @GET
     @Path("/properties/ownerVat/{ownerVat}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -98,7 +107,7 @@ public class PropertyResource {
 
     @POST
     @Path("property")
-    @Produces("application/json") 
+    @Produces("application/json")
     @Consumes("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public void createNewProperty(PropertyDto property) {

@@ -31,7 +31,7 @@ public class Property extends PersistentClass {
     @OneToMany(mappedBy = "property", orphanRemoval = true)
     private List<Repair> repairs;
 
-    public Property(int e9, String address, String yearOfConstruction, PropertyType propertyType) {
+    public Property(int e9, int par1, String address, String yearOfConstruction, PropertyType propertyType) {
         this.e9 = e9;
         this.address = address;
         this.yearOfConstruction = yearOfConstruction;

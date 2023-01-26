@@ -2,7 +2,6 @@ package com.mycompany.webtechnikonproject.resources;
 
 import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
-import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -10,7 +9,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("ownerResource")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -43,7 +41,7 @@ public class OwnerResource {
     @Produces("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("email") String email) {
-        return ownerService.getOwnerByEmail(email);
+        return ownerService.getOwnerByEmail(email); 
 
     }
 
