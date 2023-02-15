@@ -28,8 +28,6 @@ public interface OwnerService {
      *
      * @param propertyOwner
      */
-    void registerNewProperty(PropertyOwner propertyOwner);
-
     /**
      * This method gets a new Property from the console. To be used in
      * registering a new property by its owner.
@@ -54,16 +52,12 @@ public interface OwnerService {
      * @param property
      * @return
      */
-    Repair getRepairFromConsole(Property property);
-
     /**
      * This method registers a new repair that the owner inserted in the
      * console.
      *
      * @param property
      */
-    void registerRepair(Property property);
-
     void displayAllOwners();
 
     void displayOwnersProperties(int ownerId);
@@ -75,29 +69,11 @@ public interface OwnerService {
      * @param property
      * @throws PropertyException
      */
-    void isValidProperty(Property property) throws PropertyException;
-
     /**
      * This method changes acceptance status of a repair to true
      *
      * @param repair
      */
-    void acceptRepair(Repair repair);
-
-    /**
-     * This method changes acceptance status of a repair to false
-     *
-     * @param repair
-     */
-    void declineRepair(Repair repair);
-
-    boolean deleteProperty(int id);
-
-    // REST API METHODS
-    PropertyOwnerDto createPropertyOwner(PropertyOwnerDto ownerDto);
-
-    void createRepair(RepairDto repair);
-
     RestApiResult<PropertyOwnerDto> getOwner(int ownerId);
 
     RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat);
@@ -106,27 +82,9 @@ public interface OwnerService {
 
     List<PropertyOwnerDto> getAllOwners();
 
-    List<PropertyDto> getAllProperties();
-
-    List<RepairDto> getAllRepairs();
-
-    RestApiResult<PropertyDto> getProperty(int propertyId);
-
-    PropertyDto getPropertyByE9(int e9);
-
-    boolean checkE9(int e9);
-    
     boolean checkVat(int vat);
 
-    List<PropertyDto> getPropertiesByOwnerVat(int vat);
-
-    RestApiResult<RepairDto> getRepair(int repairId);
-
-    void registerNewPropertyDto(PropertyDto propertyDto);
-
     boolean deletePropertyOwner(int ownerId);
-
-    boolean deleteRepair(int repairId);
 
     RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id);
 
@@ -146,44 +104,12 @@ public interface OwnerService {
 
     PropertyOwnerDto updateVat(int id, int vat);
 
-    RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id);
-
-    PropertyDto updateE9(int propertyId, int e9);
-
-    PropertyDto updatePropertyAddress(int propertyId, String address);
-
-    PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction);
-
-    PropertyDto updatePropertyType(int propertyId, PropertyType propertyType);
-
-    RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id);
-
-    List<RepairDto> getRepairsBySubmissionDate(String submissionDate);
-
-    List<RepairDto> getRepairsOfOwner(int id);
-
-    RepairDto updateRepairType(int id, RepairType repairType);
-
-    RepairDto updateRepairDescription(int id, String repairDescription);
-
-    RepairDto updateSubmissionDate(int id, String submissionDate);
-
-    RepairDto updateWorkDescription(int id, String workDescription);
-
-    RepairDto updateStartDate(int id, String startDate);
-
-    RepairDto updateEndDate(int id, String endDate);
-
-    RepairDto updateCost(int id, double cost);
-
-    RepairDto updateAcceptance(int id, boolean acceptance);
-
-    RepairDto updateRepairStatus(int id, RepairStatus repairStatus);
-
-    RepairDto updateActualStartDate(int id, String actualStartDate);
-
-    RepairDto updateActualEndDate(int id, String actualEndDate);
+    PropertyOwnerDto createPropertyOwner(PropertyOwnerDto ownerDto);
 
     PropertyOwnerDto getUser(String authorization);
+
+    void registerNewProperty(PropertyOwner propertyOwner);
+
+    void isValidProperty(Property property) throws PropertyException;
 
 }

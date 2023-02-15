@@ -119,40 +119,6 @@ public class OwnerServiceImpl implements OwnerService {
         propertyRepository.create(property);
     }
 
-    @Override
-    public Repair getRepairFromConsole(Property property) {
-        Scanner scanner = new Scanner(System.in);
-        Repair repair = new Repair();
-        System.out.println("Give the new repair's  details in the following form: ");
-        System.out.println("repair type (PAINTING INSULATION FRAMES PLUMBING ELECTRICAL_WORK), repair description, "
-                + "submission date (YYYY-MM-DD), work description, start date  (YYYY-MM-DD), end date  (YYYY-MM-DD),"
-                + " cost, acceptance (True, False), repair status (PENDING DECLINED IN_PROGRESS COMPLETE), "
-                + " actual start date (YYYY-MM-DD), actual end date (YYYY-MM-DD)");
-        String repairDetails = scanner.nextLine();
-        String[] repairDetailsSplit = repairDetails.split(",");
-        repair.setProperty(property);
-        repair.setRepairType(RepairType.valueOf(repairDetailsSplit[0].trim().toUpperCase()));
-        repair.setRepairDescription(repairDetailsSplit[1].trim());
-        repair.setSubmissionDate(repairDetailsSplit[2].trim());
-        repair.setWorkDescription(repairDetailsSplit[3].trim());
-        repair.setStartDate(repairDetailsSplit[4].trim());
-        repair.setEndDate(repairDetailsSplit[5].trim());
-        repair.setCost(Double.parseDouble(repairDetailsSplit[6].trim()));
-        repair.setAcceptance(Boolean.parseBoolean(repairDetailsSplit[7].trim()));
-        repair.setRepairStatus(RepairStatus.valueOf(repairDetailsSplit[8].trim().toUpperCase()));
-        repair.setActualStartDate(repairDetailsSplit[9].trim());
-        repair.setActualEndDate(repairDetailsSplit[10].trim());
-        return repair;
-    }
-
-    @Override
-    public void registerRepair(Property property) {
-        Repair repair = getRepairFromConsole(property);
-        repairRepository.create(repair);
-        repairRepository.updatePropertyId(repair.getId(), property.getId());
-        logger.info("The new repair has been registered");
-    }
-
     public void displayAllOwners() {
         List<PropertyOwner> owners = propertyOwnerRepository.readAll();
         for (PropertyOwner owner : owners) {
@@ -186,13 +152,21 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void acceptRepair(Repair repair) {
-        repairRepository.updateAcceptance(repair.getId(), true);
-    }
-
-    @Override
-    public void declineRepair(Repair repair) {
-        repairRepository.updateAcceptance(repair.getId(), false);
+    public RestApiResult<PropertyOwnerDto> getOwner(int ownerId) {
+        try {
+            PropertyOwner owner = propertyOwnerRepository.findById(ownerId);
+            if (owner != null) {
+                logger.info("Returning owner with id: " + ownerId);
+                PropertyOwnerDto ownerDto = new PropertyOwnerDto(owner);
+                return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
+            } else {
+                logger.warn("Owner cannot be found");
+                throw new Exception("Owner not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error has been occured");
+            return new RestApiResult<PropertyOwnerDto>(null, 1, e.getMessage());
+        }
     }
 
     @Override
@@ -227,59 +201,6 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<PropertyOwnerDto> getOwner(int ownerId) {
-        try {
-            PropertyOwner owner = propertyOwnerRepository.findById(ownerId);
-            if (owner != null) {
-                logger.info("Returning owner with id: " + ownerId);
-                PropertyOwnerDto ownerDto = new PropertyOwnerDto(owner);
-                return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
-            } else {
-                logger.warn("Owner cannot be found");
-                throw new Exception("Owner not found");
-            }
-        } catch (Exception e) {
-            logger.error("Error has been occured");
-            return new RestApiResult<PropertyOwnerDto>(null, 1, e.getMessage());
-        }
-    }
-
-    @Override
-    public RestApiResult<PropertyDto> getProperty(int propertyId) {
-        try {
-            PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
-            if (propertyDto != null) {
-                logger.info("Returning property with id: " + propertyId);
-                return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
-            } else {
-                logger.warn("Property cannot be found");
-                throw new Exception("Property not found");
-            }
-
-        } catch (Exception e) {
-            logger.error("Error has been occured");
-            return new RestApiResult<PropertyDto>(null, 1, e.getMessage());
-        }
-    }
-
-    @Override
-    public RestApiResult<RepairDto> getRepair(int repairId) {
-        try {
-            RepairDto repairDto = new RepairDto(repairRepository.findById(repairId));
-            if (repairDto != null) {
-                logger.info("Returning repair with id: " + repairId);
-                return new RestApiResult<RepairDto>(repairDto, 0, "successful");
-            } else {
-                logger.warn("Repair cannot be found");
-                throw new Exception("Repair not found");
-            }
-        } catch (Exception e) {
-            logger.error("Error has been occured");
-            return new RestApiResult<RepairDto>(null, 1, e.getMessage());
-        }
-    }
-
-    @Override
     public RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat
     ) {
         PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByVat(vat));
@@ -303,67 +224,10 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    @Transactional
-    public List<PropertyDto> getAllProperties() {
-        logger.info("Getting all properties");
-        return propertyRepository.findAll().stream().map(PropertyDto::new).collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public List<RepairDto> getAllRepairs() {
-        logger.info("Getting all repairs");
-        return repairRepository.findAll().stream().map(RepairDto::new).collect(Collectors.toList());
-    }
-
-    @Override
-    public void registerNewPropertyDto(PropertyDto propertyDto
-    ) {
-        try {
-            Property property = propertyDto.asProperty();
-            List<Property> e9s = propertyRepository.findE9s(property.getE9());
-            if (!e9s.isEmpty()) {
-                logger.warn("E9 already in use by another property");
-                throw new IllegalArgumentException("E9 already in use by another property");
-            }
-            propertyRepository.create(property);
-            logger.info("Adding new property: " + propertyDto.toString());
-        } catch (IllegalArgumentException e) {
-            logger.error("Bad Request: " + e.getMessage());
-        }
-    }
-
-    @Override
     public boolean deletePropertyOwner(int ownerId
     ) {
         logger.info("Deleting PropertyOwner with id: " + ownerId);
         return propertyOwnerRepository.deleteOwner(ownerId);
-    }
-
-    @Override
-    public boolean deleteRepair(int repairId
-    ) {
-        logger.info("Deleting repair with id: " + repairId);
-        return repairRepository.deleteRepair(repairId);
-    }
-
-    @Override
-    public boolean deleteProperty(int id
-    ) {
-        logger.info("Deleting property with id: " + id);
-        propertyRepository.deleteProperty(id);
-        return true;
-    }
-
-    @Override
-    public void createRepair(RepairDto repair
-    ) {
-        try {
-            logger.info("Adding new repair " + repair.toString());
-            repairRepository.create(repair.asRepair());
-        } catch (Exception e) {
-            logger.error("Error creating new repair: " + e.getMessage());
-        }
     }
 
     @Override
@@ -386,55 +250,6 @@ public class OwnerServiceImpl implements OwnerService {
             return new RestApiResult<PropertyOwnerDto>(propertyOwnerDto, 0, "successful");
         } catch (Exception e) {
             return new RestApiResult<PropertyOwnerDto>(propertyOwnerDto, 0, "successful");
-
-        }
-
-    }
-
-    @Override
-    public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id
-    ) {
-        try {
-            Property existingProperty = propertyRepository.findById(id);
-            existingProperty.setE9(propertyDto.getE9());
-            existingProperty.setAddress(propertyDto.getAddress());
-            existingProperty.setYearOfConstruction(propertyDto.getYearOfConstruction());
-            existingProperty.setPropertyType(propertyDto.getPropertyType());
-            logger.info("Updating the property: " + propertyDto.toString());
-            entityManager.getTransaction().begin();
-            entityManager.merge(existingProperty);
-            entityManager.getTransaction().commit();
-            return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
-        } catch (Exception e) {
-            return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
-
-        }
-
-    }
-
-    @Override
-    public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id
-    ) {
-        try {
-            Repair existingRepair = repairRepository.findById(id);
-            existingRepair.setRepairType(repairDto.getRepairType());
-            existingRepair.setRepairDescription(repairDto.getRepairDescription());
-            existingRepair.setSubmissionDate(repairDto.getSubmissionDate());
-            existingRepair.setWorkDescription(repairDto.getWorkDescription());
-            existingRepair.setStartDate(repairDto.getStartDate());
-            existingRepair.setEndDate(repairDto.getEndDate());
-            existingRepair.setCost(repairDto.getCost());
-            existingRepair.setRepairStatus(repairDto.getRepairStatus());
-            existingRepair.setActualStartDate(repairDto.getActualStartDate());
-            existingRepair.setActualEndDate(repairDto.getActualEndDate());
-            logger.info("Updating the property: " + repairDto.toString());
-            entityManager.getTransaction().begin();
-            entityManager.merge(existingRepair);
-            entityManager.getTransaction().commit();
-            return new RestApiResult<RepairDto>(repairDto, 0, "successful");
-
-        } catch (Exception e) {
-            return new RestApiResult<RepairDto>(repairDto, 0, "successful");
 
         }
 
@@ -570,290 +385,9 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyDto updatePropertyAddress(int propertyId, String address
-    ) {
-        try {
-            Property property = propertyRepository.read(propertyId);
-            property.setAddress(address);
-            logger.info("Address of property  with id " + propertyId + " will change to " + address);
-            propertyRepository.create(property);
-            return new PropertyDto(property);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the address. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public PropertyDto updateE9(int propertyId, int e9
-    ) {
-        try {
-            Property property = propertyRepository.read(propertyId);
-            property.setE9(e9);
-            logger.info("E9 of property with id " + propertyId + " will change to " + e9);
-            propertyRepository.create(property);
-            return new PropertyDto(property);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the address. Please try again");
-        }
-        return null;
-    }
-
-    @Override
-    public PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction
-    ) {
-        try {
-            Property property = propertyRepository.read(propertyId);
-            property.setYearOfConstruction(yearOfConstruction);
-            logger.info("Year of construction  of property  with id " + propertyId + " will change to " + yearOfConstruction);
-            propertyRepository.create(property);
-            return new PropertyDto(property);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the yearOfConstruction. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public PropertyDto updatePropertyType(int propertyId, PropertyType propertyType
-    ) {
-        try {
-            Property property = propertyRepository.read(propertyId);
-            property.setPropertyType(propertyType);
-            logger.info("PropertyType of property  with id " + propertyId + " will change to " + propertyType);
-            propertyRepository.create(property);
-            return new PropertyDto(property);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the propertyType. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public RepairDto updateRepairType(int id, RepairType repairType
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setRepairType(repairType);
-            logger.info("RepairType of repair  with id " + id + " will change to " + repairType);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the repairType. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateRepairDescription(int id, String repairDescription
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setRepairDescription(repairDescription);
-            logger.info("RepairDescription of repair  with id " + id + " will change to " + repairDescription);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the repairDescription. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateSubmissionDate(int id, String submissionDate
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setSubmissionDate(submissionDate);
-            logger.info("SubmissionDate of repair  with id " + id + " will change to " + submissionDate);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the submissionDate. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateWorkDescription(int id, String workDescription
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setWorkDescription(workDescription);
-            logger.info("Work description of repair  with id " + id + " will change to " + workDescription);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the workDescription. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateStartDate(int id, String startDate
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setStartDate(startDate);
-            logger.info("Start date of repair  with id " + id + " will change to " + startDate);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the startDate. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public RepairDto updateEndDate(int id, String endDate
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setEndDate(endDate);
-            logger.info("End date of repair  with id " + id + " will change to " + endDate);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the endDate. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public RepairDto updateCost(int id, double cost
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setCost(cost);
-            repairRepository.create(repair);
-            logger.info("Cost of repair  with id " + id + " will change to " + cost);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the cost. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public RepairDto updateAcceptance(int id, boolean acceptance
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setAcceptance(acceptance);
-            logger.info("Acceptance of repair  with id " + id + " will change to " + acceptance);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the acceptance. Pleasy try again");
-
-        }
-        return null;
-
-    }
-
-    @Override
-    public RepairDto updateRepairStatus(int id, RepairStatus repairStatus
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setRepairStatus(repairStatus);
-            logger.info("RepairStatus of repair  with id " + id + " will change to " + repairStatus);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the repairStatus. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateActualStartDate(int id, String actualStartDate
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setActualStartDate(actualStartDate);
-            logger.info("ActualStartDate of repair  with id " + id + " will change to " + actualStartDate);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the actualStartDate. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public RepairDto updateActualEndDate(int id, String actualEndDate
-    ) {
-        try {
-            Repair repair = repairRepository.read(id);
-            repair.setActualEndDate(actualEndDate);
-            logger.info("ActualEndDate of repair  with id " + id + " will change to " + actualEndDate);
-            repairRepository.create(repair);
-            return new RepairDto(repair);
-        } catch (Exception e) {
-            logger.error("Something wrong while changing the actualEndDate. Pleasy try again");
-
-        }
-        return null;
-    }
-
-    @Override
-    public PropertyDto getPropertyByE9(int e9) {
-        logger.info("Returning property with e9: " + e9);
-        return new PropertyDto(propertyRepository.findbyE9(e9));
-    }
-
-    @Override
-    public boolean checkE9(int e9) {
-        logger.info("Checking if property with e9 " + e9 + "if exists");
-        return propertyRepository.checkE9IfExists(e9);
-    }
-
-    @Override
     public boolean checkVat(int vat) {
         logger.info("Returning owner with vat: " + vat);
         return propertyOwnerRepository.checkVatIfExists(vat);
-    }
-
-    @Transactional
-    @Override
-    public List<PropertyDto> getPropertiesByOwnerVat(int vat
-    ) {
-        PropertyOwner owner = propertyOwnerRepository.findByVat(vat);
-        logger.info("Returning properties that belong to owner with Vat : " + vat);
-        return owner.getProperties().stream().map(property -> new PropertyDto(property)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RepairDto> getRepairsBySubmissionDate(String submissionDate
-    ) {
-        logger.info("Returning all repairs with submission date: " + submissionDate);
-        return repairRepository.findbyExactDate(submissionDate).stream().map(RepairDto::new).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RepairDto> getRepairsOfOwner(int id
-    ) {
-        logger.info("Returning all repairs of owner with id : " + id);
-        return repairRepository.findRepairsOfOwner(id).stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
     @Override

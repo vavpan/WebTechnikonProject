@@ -5,6 +5,7 @@ import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.services.AdminService;
 import com.mycompany.webtechnikonproject.services.OwnerService;
+import com.mycompany.webtechnikonproject.services.RepairService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -26,6 +27,9 @@ public class AdminResource {
 
     @Inject
     private OwnerService ownerService;
+
+    @Inject
+    private RepairService repairService;
 
     @GET
     @Path("pendingRepairs")
@@ -50,14 +54,13 @@ public class AdminResource {
         List<Repair> repairs = adminService.displayActualDatesOfPendingRepairs();
         return repairs;
 
-    } 
+    }
 
     @PUT
     @Path("proposeCostsAndDates/{repairId}")
     @Consumes("application/json")
     public RestApiResult<RepairDto> proposeCostsAndDates(RepairDto repairDto, @PathParam("repairId") int repairId) {
-        return ownerService.updateRepair(repairDto, repairId);
+        return repairService.updateRepair(repairDto, repairId);
     }
 
 }
- 
