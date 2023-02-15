@@ -1,7 +1,7 @@
 # WebTechnikonProject
 
 
-**FrontEnd repository -> https://github.com/vavpan/FrontendTechnikon**
+**Frontend repository -> https://github.com/vavpan/FrontendTechnikon**
 
 **About the app**
 
