@@ -245,6 +245,7 @@ public class RepairRepositoryImpl extends RepositoryImpl<Repair> implements Repa
             entityManager.getTransaction().begin();
             entityManager.remove(repair);
             entityManager.getTransaction().commit();
+            logger.info("Repair deleted successfully");
         } catch (Exception ex) {
             logger.warn("Can't be deleted", ex);
         }

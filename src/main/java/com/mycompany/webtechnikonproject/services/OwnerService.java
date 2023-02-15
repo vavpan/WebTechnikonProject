@@ -115,6 +115,8 @@ public interface OwnerService {
     PropertyDto getPropertyByE9(int e9);
 
     boolean checkE9(int e9);
+    
+    boolean checkVat(int vat);
 
     List<PropertyDto> getPropertiesByOwnerVat(int vat);
 
@@ -145,6 +147,8 @@ public interface OwnerService {
     PropertyOwnerDto updateVat(int id, int vat);
 
     RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id);
+
+    PropertyDto updateE9(int propertyId, int e9);
 
     PropertyDto updatePropertyAddress(int propertyId, String address);
 

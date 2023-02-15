@@ -1,7 +1,6 @@
 package com.mycompany.webtechnikonproject.security;
 
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
-import com.mycompany.webtechnikonproject.services.OwnerService;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;

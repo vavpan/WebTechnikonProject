@@ -79,6 +79,15 @@ public class PropertyResource {
     }
 
     @PUT
+    @Path("/e9/{propertyId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @RolesAllowed({"ADMIN", "USER"})
+    public PropertyDto updateE9(@PathParam("propertyId") int propertyId, int e9) {
+        return ownerService.updateE9(propertyId, e9);
+    }
+
+    @PUT
     @Path("/updateAddress/{propertyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)

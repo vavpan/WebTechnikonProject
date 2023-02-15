@@ -1,6 +1,4 @@
-package com.mycompany.webtechnikonproject.dto;
-
-import com.mycompany.webtechnikonproject.util.JpaUtil;
+package com.mycompany.webtechnikonproject.dto;import com.mycompany.webtechnikonproject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;

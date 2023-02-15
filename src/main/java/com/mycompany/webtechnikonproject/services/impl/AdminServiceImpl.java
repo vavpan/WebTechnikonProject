@@ -1,21 +1,13 @@
 package com.mycompany.webtechnikonproject.services.impl;
 
-import com.mycompany.webtechnikonproject.dto.RepairDto;
-import com.mycompany.webtechnikonproject.dto.RestApiResult;
-import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.services.AdminService;
-import com.mycompany.webtechnikonproject.util.JpaUtil;
-import jakarta.enterprise.inject.Default;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.TypedQuery;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;

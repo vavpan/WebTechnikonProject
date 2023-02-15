@@ -30,7 +30,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.Response;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
@@ -245,14 +245,51 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat) {
+    public RestApiResult<PropertyDto> getProperty(int propertyId) {
+        try {
+            PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
+            if (propertyDto != null) {
+                logger.info("Returning property with id: " + propertyId);
+                return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
+            } else {
+                logger.warn("Property cannot be found");
+                throw new Exception("Property not found");
+            }
+
+        } catch (Exception e) {
+            logger.error("Error has been occured");
+            return new RestApiResult<PropertyDto>(null, 1, e.getMessage());
+        }
+    }
+
+    @Override
+    public RestApiResult<RepairDto> getRepair(int repairId) {
+        try {
+            RepairDto repairDto = new RepairDto(repairRepository.findById(repairId));
+            if (repairDto != null) {
+                logger.info("Returning repair with id: " + repairId);
+                return new RestApiResult<RepairDto>(repairDto, 0, "successful");
+            } else {
+                logger.warn("Repair cannot be found");
+                throw new Exception("Repair not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error has been occured");
+            return new RestApiResult<RepairDto>(null, 1, e.getMessage());
+        }
+    }
+
+    @Override
+    public RestApiResult<PropertyOwnerDto> getOwnerByVat(int vat
+    ) {
         PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByVat(vat));
         logger.info("Returning owner with vat : " + vat);
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
     }
 
     @Override
-    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email) {
+    public RestApiResult<PropertyOwnerDto> getOwnerByEmail(String email
+    ) {
         logger.info("Getting owner with e-mail: " + email);
         PropertyOwnerDto ownerDto = new PropertyOwnerDto(propertyOwnerRepository.findByEmail(email));
         return new RestApiResult<PropertyOwnerDto>(ownerDto, 0, "successful");
@@ -280,22 +317,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<PropertyDto> getProperty(int propertyId) {
-        PropertyDto propertyDto = new PropertyDto(propertyRepository.findById(propertyId));
-        logger.info("Returning property with id: " + propertyId);
-
-        return new RestApiResult<PropertyDto>(propertyDto, 0, "successful");
-    }
-
-    @Override
-    public RestApiResult<RepairDto> getRepair(int repairId) {
-        RepairDto repairDto = new RepairDto(repairRepository.findById(repairId));
-        logger.info("Returning repair with id: " + repairId);
-        return new RestApiResult<RepairDto>(repairDto, 0, "successful");
-    }
-
-    @Override
-    public void registerNewPropertyDto(PropertyDto propertyDto) {
+    public void registerNewPropertyDto(PropertyDto propertyDto
+    ) {
         try {
             Property property = propertyDto.asProperty();
             List<Property> e9s = propertyRepository.findE9s(property.getE9());
@@ -311,26 +334,30 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public boolean deletePropertyOwner(int ownerId) {
+    public boolean deletePropertyOwner(int ownerId
+    ) {
         logger.info("Deleting PropertyOwner with id: " + ownerId);
         return propertyOwnerRepository.deleteOwner(ownerId);
     }
 
     @Override
-    public boolean deleteRepair(int repairId) {
+    public boolean deleteRepair(int repairId
+    ) {
         logger.info("Deleting repair with id: " + repairId);
         return repairRepository.deleteRepair(repairId);
     }
 
     @Override
-    public boolean deleteProperty(int id) {
+    public boolean deleteProperty(int id
+    ) {
         logger.info("Deleting property with id: " + id);
         propertyRepository.deleteProperty(id);
         return true;
     }
 
     @Override
-    public void createRepair(RepairDto repair) {
+    public void createRepair(RepairDto repair
+    ) {
         try {
             logger.info("Adding new repair " + repair.toString());
             repairRepository.create(repair.asRepair());
@@ -340,7 +367,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id) {
+    public RestApiResult<PropertyOwnerDto> updateOwner(PropertyOwnerDto propertyOwnerDto, int id
+    ) {
         try {
             PropertyOwner existingOwner = propertyOwnerRepository.findById(id);
             existingOwner.setVat(propertyOwnerDto.getVat());
@@ -364,7 +392,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id) {
+    public RestApiResult<PropertyDto> updateProperty(PropertyDto propertyDto, int id
+    ) {
         try {
             Property existingProperty = propertyRepository.findById(id);
             existingProperty.setE9(propertyDto.getE9());
@@ -384,7 +413,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id) {
+    public RestApiResult<RepairDto> updateRepair(RepairDto repairDto, int id
+    ) {
         try {
             Repair existingRepair = repairRepository.findById(id);
             existingRepair.setRepairType(repairDto.getRepairType());
@@ -411,7 +441,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateAddress(int id, String newAddress) { 
+    public PropertyOwnerDto updateAddress(int id, String newAddress
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setAddress(newAddress);
@@ -425,7 +456,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateEmail(int id, String email) {
+    public PropertyOwnerDto updateEmail(int id, String email
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             if (propertyOwner == null) {
@@ -447,7 +479,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateName(int id, String name) {
+    public PropertyOwnerDto updateName(int id, String name
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setName(name);
@@ -461,7 +494,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateSurname(int id, String surname) {
+    public PropertyOwnerDto updateSurname(int id, String surname
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setSurname(surname);
@@ -475,7 +509,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updatePassword(int id, String password) {
+    public PropertyOwnerDto updatePassword(int id, String password
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setPassword(password);
@@ -489,7 +524,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updatePhoneNumber(int id, String phoneNumber) {
+    public PropertyOwnerDto updatePhoneNumber(int id, String phoneNumber
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setPhoneNumber(phoneNumber);
@@ -503,7 +539,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateUsername(int id, String username) {
+    public PropertyOwnerDto updateUsername(int id, String username
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setUsername(username);
@@ -517,7 +554,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyOwnerDto updateVat(int id, int vat) {
+    public PropertyOwnerDto updateVat(int id, int vat
+    ) {
         try {
             PropertyOwner propertyOwner = propertyOwnerRepository.read(id);
             propertyOwner.setVat(vat);
@@ -532,7 +570,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyDto updatePropertyAddress(int propertyId, String address) {
+    public PropertyDto updatePropertyAddress(int propertyId, String address
+    ) {
         try {
             Property property = propertyRepository.read(propertyId);
             property.setAddress(address);
@@ -548,7 +587,23 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction) {
+    public PropertyDto updateE9(int propertyId, int e9
+    ) {
+        try {
+            Property property = propertyRepository.read(propertyId);
+            property.setE9(e9);
+            logger.info("E9 of property with id " + propertyId + " will change to " + e9);
+            propertyRepository.create(property);
+            return new PropertyDto(property);
+        } catch (Exception e) {
+            logger.error("Something wrong while changing the address. Please try again");
+        }
+        return null;
+    }
+
+    @Override
+    public PropertyDto updateYearOfConstruction(int propertyId, String yearOfConstruction
+    ) {
         try {
             Property property = propertyRepository.read(propertyId);
             property.setYearOfConstruction(yearOfConstruction);
@@ -564,7 +619,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public PropertyDto updatePropertyType(int propertyId, PropertyType propertyType) {
+    public PropertyDto updatePropertyType(int propertyId, PropertyType propertyType
+    ) {
         try {
             Property property = propertyRepository.read(propertyId);
             property.setPropertyType(propertyType);
@@ -580,7 +636,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateRepairType(int id, RepairType repairType) {
+    public RepairDto updateRepairType(int id, RepairType repairType
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setRepairType(repairType);
@@ -595,7 +652,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateRepairDescription(int id, String repairDescription) {
+    public RepairDto updateRepairDescription(int id, String repairDescription
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setRepairDescription(repairDescription);
@@ -610,7 +668,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateSubmissionDate(int id, String submissionDate) {
+    public RepairDto updateSubmissionDate(int id, String submissionDate
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setSubmissionDate(submissionDate);
@@ -625,7 +684,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateWorkDescription(int id, String workDescription) {
+    public RepairDto updateWorkDescription(int id, String workDescription
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setWorkDescription(workDescription);
@@ -640,7 +700,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateStartDate(int id, String startDate) {
+    public RepairDto updateStartDate(int id, String startDate
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setStartDate(startDate);
@@ -656,7 +717,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateEndDate(int id, String endDate) {
+    public RepairDto updateEndDate(int id, String endDate
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setEndDate(endDate);
@@ -672,7 +734,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateCost(int id, double cost) {
+    public RepairDto updateCost(int id, double cost
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setCost(cost);
@@ -688,7 +751,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateAcceptance(int id, boolean acceptance) {
+    public RepairDto updateAcceptance(int id, boolean acceptance
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setAcceptance(acceptance);
@@ -704,7 +768,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateRepairStatus(int id, RepairStatus repairStatus) {
+    public RepairDto updateRepairStatus(int id, RepairStatus repairStatus
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setRepairStatus(repairStatus);
@@ -719,7 +784,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateActualStartDate(int id, String actualStartDate) {
+    public RepairDto updateActualStartDate(int id, String actualStartDate
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setActualStartDate(actualStartDate);
@@ -734,7 +800,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public RepairDto updateActualEndDate(int id, String actualEndDate) {
+    public RepairDto updateActualEndDate(int id, String actualEndDate
+    ) {
         try {
             Repair repair = repairRepository.read(id);
             repair.setActualEndDate(actualEndDate);
@@ -760,33 +827,44 @@ public class OwnerServiceImpl implements OwnerService {
         return propertyRepository.checkE9IfExists(e9);
     }
 
+    @Override
+    public boolean checkVat(int vat) {
+        logger.info("Returning owner with vat: " + vat);
+        return propertyOwnerRepository.checkVatIfExists(vat);
+    }
+
     @Transactional
     @Override
-    public List<PropertyDto> getPropertiesByOwnerVat(int vat) {
+    public List<PropertyDto> getPropertiesByOwnerVat(int vat
+    ) {
         PropertyOwner owner = propertyOwnerRepository.findByVat(vat);
         logger.info("Returning properties that belong to owner with Vat : " + vat);
         return owner.getProperties().stream().map(property -> new PropertyDto(property)).collect(Collectors.toList());
     }
 
     @Override
-    public List<RepairDto> getRepairsBySubmissionDate(String submissionDate) {
+    public List<RepairDto> getRepairsBySubmissionDate(String submissionDate
+    ) {
         logger.info("Returning all repairs with submission date: " + submissionDate);
         return repairRepository.findbyExactDate(submissionDate).stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<RepairDto> getRepairsOfOwner(int id) {
+    public List<RepairDto> getRepairsOfOwner(int id
+    ) {
         logger.info("Returning all repairs of owner with id : " + id);
         return repairRepository.findRepairsOfOwner(id).stream().map(RepairDto::new).collect(Collectors.toList());
     }
 
     @Override
-    public PropertyOwnerDto getUser(String authorization) {
+    public PropertyOwnerDto getUser(String authorization
+    ) {
         final String encodedUserPassword = authorization.replaceFirst("Basic" + " ", "");
         String usernameAndPassword = new String(Base64.getDecoder().decode(encodedUserPassword.getBytes()));
         final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
         final String username = tokenizer.nextToken();
         final String password = tokenizer.nextToken();
+        logger.info("User: {} logged in at {}", username, LocalDateTime.now());
         return new PropertyOwnerDto(propertyOwnerRepository.findByUserameAndPass(username, password));
     }
 

@@ -2,7 +2,6 @@ package com.mycompany.webtechnikonproject.repository;
 
 import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.model.Property;
-import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 public interface PropertyRepository extends Repository<Property> {

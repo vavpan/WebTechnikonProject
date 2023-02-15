@@ -64,11 +64,42 @@ public class PropertyResourceTest {
     }
 
     @Test
-    public void testDeleteProperty() {
-        when(mockOwnerService.deleteProperty(0)).thenReturn(true);
-        boolean result = propertyResourceUnderTest.deleteProperty(0);
+    public void testCheckE9() {
+        int e9 = 12345;
+        when(mockOwnerService.checkE9(e9)).thenReturn(true);
+
+        boolean result = propertyResourceUnderTest.checkE9(e9);
+
         assertTrue(result);
-        verify(mockOwnerService).deleteProperty(0);
+        verify(mockOwnerService).checkE9(e9);
+    }
+
+    @Test
+    public void testReturnPropertiesByOwnerVat() {
+
+        PropertyDto property1 = new PropertyDto(new Property(1, 9, "address", "yearOfConstruction", PropertyType.APARTMENT_BUILDING));
+        PropertyDto property2 = new PropertyDto(new Property(2, 9, "address", "yearOfConstruction", PropertyType.MAISONETTE));
+
+        List<PropertyDto> expectedProperties = Arrays.asList(property1, property2);
+
+        when(mockOwnerService.getPropertiesByOwnerVat(9)).thenReturn(expectedProperties);
+
+        List<PropertyDto> actualProperties = propertyResourceUnderTest.returnPropertiesByOwnervat(9);
+
+        assertEquals(expectedProperties, actualProperties);
+
+    }
+
+    @Test
+    public void testReturnOwnerByE9() {
+
+        PropertyDto property = new PropertyDto(new Property(1, 1234, "address", "yearOfConstruction", PropertyType.APARTMENT_BUILDING));
+
+        when(mockOwnerService.getPropertyByE9(1234)).thenReturn(property);
+
+        PropertyDto propertyDto = propertyResourceUnderTest.returnOwnerByE9(1234);
+
+        assertEquals(propertyDto, property);
     }
 
     @Test
@@ -79,6 +110,23 @@ public class PropertyResourceTest {
         PropertyDto result = propertyResourceUnderTest.updateYearOfConstruction(0, "newYearOfConstruction");
         assertEquals(expectedResult, result);
         verify(mockOwnerService).updateYearOfConstruction(0, "newYearOfConstruction");
+    }
+
+    public void testUpdatePropertyType() {
+        Property property = new Property(0, 2, "address", "yearOfConstruction", PropertyType.DETACHED_HOUSE);
+        PropertyDto expectedResult = new PropertyDto(property);
+        when(mockOwnerService.updatePropertyType(0, PropertyType.MAISONETTE)).thenReturn(expectedResult);
+        PropertyDto result = propertyResourceUnderTest.updatePropertyType(0, PropertyType.MAISONETTE);
+        assertEquals(expectedResult, result);
+        verify(mockOwnerService).updatePropertyType(0, PropertyType.MAISONETTE);
+    }
+
+    @Test
+    public void testDeleteProperty() {
+        when(mockOwnerService.deleteProperty(0)).thenReturn(true);
+        boolean result = propertyResourceUnderTest.deleteProperty(0);
+        assertTrue(result);
+        verify(mockOwnerService).deleteProperty(0);
     }
 
 }

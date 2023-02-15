@@ -23,7 +23,7 @@ public class OwnerResource {
     @Produces("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwner(@PathParam("ownerId") int ownerId) {
-        return ownerService.getOwner(ownerId); 
+        return ownerService.getOwner(ownerId);
 
     }
 
@@ -41,7 +41,7 @@ public class OwnerResource {
     @Produces("application/json")
     @RolesAllowed({"ADMIN", "USER"})
     public RestApiResult<PropertyOwnerDto> getOwnerByEmail(@PathParam("email") String email) {
-        return ownerService.getOwnerByEmail(email); 
+        return ownerService.getOwnerByEmail(email);
 
     }
 
@@ -52,7 +52,16 @@ public class OwnerResource {
     public List<PropertyOwnerDto> getAllOwners() {
         return ownerService.getAllOwners();
 
-    }  
+    }
+
+    @GET
+    @Path("/owner/checkVat/{vat}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER"})
+    public boolean checkVat(@PathParam("vat") int vat){
+        return ownerService.checkVat(vat);
+    }
 
     @PUT
     @Path("owner/{ownerId}")
@@ -83,7 +92,7 @@ public class OwnerResource {
 
     @PUT
     @Path("/updateName/{id}")
-    @Produces(MediaType.APPLICATION_JSON) 
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updateName(@PathParam("id") int id, String name) {
@@ -98,11 +107,11 @@ public class OwnerResource {
     public PropertyOwnerDto updateSurname(@PathParam("id") int id, String surname) {
         return ownerService.updateSurname(id, surname);
     }
- 
-    @PUT 
+
+    @PUT
     @Path("/updatePassword/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN) 
+    @Consumes(MediaType.TEXT_PLAIN)
     @RolesAllowed({"ADMIN", "USER"})
     public PropertyOwnerDto updatePassword(@PathParam("id") int id, String password) {
         return ownerService.updatePassword(id, password);
@@ -117,7 +126,7 @@ public class OwnerResource {
         return ownerService.updatePhoneNumber(id, phoneNumber);
     }
 
-    @PUT 
+    @PUT
     @Path("/updateUsername/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -155,4 +164,3 @@ public class OwnerResource {
     }
 
 }
- 

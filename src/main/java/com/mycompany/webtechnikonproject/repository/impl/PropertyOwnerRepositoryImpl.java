@@ -1,19 +1,17 @@
 package com.mycompany.webtechnikonproject.repository.impl;
 
-import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
-import com.mycompany.webtechnikonproject.repository.PropertyRepository;
-import com.mycompany.webtechnikonproject.repository.RepairRepository;
 import com.mycompany.webtechnikonproject.util.JpaUtil;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.InternalServerErrorException;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -240,9 +238,22 @@ public class PropertyOwnerRepositoryImpl extends RepositoryImpl<PropertyOwner> i
 
     @Override
     public List<PropertyOwner> checkEmails(String email) {
-            return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.email = :email", PropertyOwner.class)
-            .setParameter("email", email)
-            .getResultList();
+        return entityManager.createQuery("SELECT p FROM propertyowner p WHERE p.email = :email", PropertyOwner.class)
+                .setParameter("email", email)
+                .getResultList();
+    }
+
+    @Override
+    public boolean checkVatIfExists(int vat) {
+        try {
+            entityManager.createQuery("SELECT p from propertyowner p where p.vat =:vat", PropertyOwner.class)
+                    .setParameter("vat", vat).getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            return false;
+        } catch (NonUniqueResultException ex) {
+            throw new InternalServerErrorException("Multiple owners found with vat " + vat);
+        }
     }
 
 }

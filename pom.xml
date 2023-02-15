@@ -164,10 +164,8 @@
                     <testSourceDirectory>src/test/java</testSourceDirectory>
                     <testClassesDirectory>target/test-classes</testClassesDirectory>
                     <testRunner>org.junit.platform.launcher.JUnitPlatform</testRunner>
-               
                 </configuration>
             </plugin>
-            
         </plugins>
     </build>
 </project>

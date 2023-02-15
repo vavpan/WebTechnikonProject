@@ -1,10 +1,8 @@
 package com.mycompany.webtechnikonproject.repository;
 
-import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Repair;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface RepairRepository extends Repository<Repair> {
