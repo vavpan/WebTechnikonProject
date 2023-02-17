@@ -24,7 +24,7 @@ public class InitResource {
 
     @Inject
     private IoServices ioServices;
-
+  
     @GET
     @PermitAll 
     public void init() {
@@ -32,7 +32,7 @@ public class InitResource {
         ioServices.readPropertyCsv("C:\\Users\\vavil\\Documents\\NetBeansProjects\\WebTechnikonProject\\property.csv");
         ioServices.readRepairCsv("C:\\Users\\vavil\\Documents\\NetBeansProjects\\WebTechnikonProject\\repairs.csv");
         ioServices.relationshipsBetweenObjects();
-
-    }
+           
+}
 
 }
