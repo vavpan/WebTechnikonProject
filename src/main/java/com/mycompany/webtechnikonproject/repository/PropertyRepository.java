@@ -4,7 +4,7 @@ import com.mycompany.webtechnikonproject.enums.PropertyType;
 import com.mycompany.webtechnikonproject.model.Property;
 import java.util.List;
 
-public interface PropertyRepository extends Repository<Property> {
+public interface PropertyRepository extends Repository<Property, Number> {
 
     Property search(int id);
 
@@ -28,7 +28,7 @@ public interface PropertyRepository extends Repository<Property> {
 
     boolean delete(int id);
 
-    public void updateOwnerId(int propertyId, int propertyOwnerId);
+    void updateOwnerId(int propertyId, int propertyOwnerId);
 
     List<Property> readAll();
 

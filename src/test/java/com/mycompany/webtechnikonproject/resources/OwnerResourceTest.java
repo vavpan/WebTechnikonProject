@@ -37,6 +37,7 @@ public class OwnerResourceTest {
 
         final RestApiResult<PropertyOwnerDto> result = ownerResourceUnderTest.getOwner(0);
 
+      
         assertEquals(expectedResult.getData(), result.getData());
         assertEquals(expectedResult.getDescription(), result.getDescription());
     }
@@ -44,8 +45,8 @@ public class OwnerResourceTest {
     @Test
     public void testGetAllOwners() {
         final List<PropertyOwner> owners = Arrays.asList(
-                new PropertyOwner(1, "name1", "surname1", "address1", "phoneNumber1", "email1", "username1", "password1", "role"),
-                new PropertyOwner(2, "name2", "surname2", "address2", "phoneNumber2", "email2", "username2", "password2", "role")
+                new PropertyOwner(1, "name1", "surname1", "address1", "phoneNumber1", "email1", "username1", "password1", "role1"),
+                new PropertyOwner(2, "name2", "surname2", "address2", "phoneNumber2", "email2", "username2", "password2", "role2")
         );
         final List<PropertyOwnerDto> expectedResult = owners.stream().map(PropertyOwnerDto::new).collect(Collectors.toList());
         when(mockOwnerService.getAllOwners()).thenReturn(expectedResult);

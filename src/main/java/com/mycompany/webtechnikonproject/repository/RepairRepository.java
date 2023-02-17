@@ -5,7 +5,7 @@ import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.model.Repair;
 import java.util.List;
 
-public interface RepairRepository extends Repository<Repair> {
+public interface RepairRepository extends Repository<Repair,Number> {
 
     boolean delete(int id);
 

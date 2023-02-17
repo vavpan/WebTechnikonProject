@@ -3,8 +3,6 @@ package com.mycompany.webtechnikonproject.services;
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.PropertyType;
-import com.mycompany.webtechnikonproject.exceptions.PropertyException;
-import com.mycompany.webtechnikonproject.model.Property;
 import java.util.List;
 
 public interface PropertyService {

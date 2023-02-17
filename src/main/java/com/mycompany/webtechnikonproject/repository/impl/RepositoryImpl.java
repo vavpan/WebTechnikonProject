@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T>, Serializable {
+public abstract class RepositoryImpl<T extends PersistentClass> implements Repository<T, Number>, Serializable {
 
     @PersistenceContext
     private EntityManager entityManager;

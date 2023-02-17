@@ -1,10 +1,6 @@
 package com.mycompany.webtechnikonproject.services;
 
-import com.mycompany.webtechnikonproject.dto.RepairDto;
-import com.mycompany.webtechnikonproject.dto.RestApiResult;
-import com.mycompany.webtechnikonproject.enums.RepairStatus;
 import com.mycompany.webtechnikonproject.model.Repair;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface AdminService {

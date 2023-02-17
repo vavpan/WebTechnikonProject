@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.webtechnikonproject.resources;
 
 import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.PropertyType;
-import com.mycompany.webtechnikonproject.services.OwnerService;
 import com.mycompany.webtechnikonproject.services.PropertyService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

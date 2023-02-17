@@ -1,6 +1,5 @@
 package com.mycompany.webtechnikonproject.services;
 
-import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
 import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.RepairStatus;
@@ -16,12 +15,6 @@ public interface RepairService {
     void registerRepair(Property property);
 
     void acceptRepair(Repair repair);
-
-    /**
-     * This method changes acceptance status of a repair to false
-     *
-     * @param repair
-     */
     void declineRepair(Repair repair);
 
     void createRepair(RepairDto repair);

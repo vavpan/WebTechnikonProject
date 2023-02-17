@@ -1,10 +1,8 @@
 package com.mycompany.webtechnikonproject.services;
 
-import com.mycompany.webtechnikonproject.model.PersistentClass;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import com.mycompany.webtechnikonproject.model.Repair;
-import jakarta.ejb.Local;
 import java.util.List;
 
 

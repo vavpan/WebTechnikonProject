@@ -3,7 +3,7 @@ package com.mycompany.webtechnikonproject.repository;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
 import java.util.List;
 
-public interface PropertyOwnerRepository extends Repository<PropertyOwner> {
+public interface PropertyOwnerRepository extends Repository<PropertyOwner, Number> {
 
     PropertyOwner search(int id);
 

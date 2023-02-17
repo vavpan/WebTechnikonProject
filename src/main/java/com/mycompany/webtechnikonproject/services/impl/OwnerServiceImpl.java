@@ -1,17 +1,12 @@
 package com.mycompany.webtechnikonproject.services.impl;
 
-import com.mycompany.webtechnikonproject.dto.PropertyDto;
 import com.mycompany.webtechnikonproject.dto.PropertyOwnerDto;
-import com.mycompany.webtechnikonproject.dto.RepairDto;
 import com.mycompany.webtechnikonproject.dto.RestApiResult;
 import com.mycompany.webtechnikonproject.enums.PropertyType;
-import com.mycompany.webtechnikonproject.enums.RepairStatus;
-import com.mycompany.webtechnikonproject.enums.RepairType;
 import com.mycompany.webtechnikonproject.exceptions.ExceptionsCodes;
 import com.mycompany.webtechnikonproject.exceptions.PropertyException;
 import com.mycompany.webtechnikonproject.model.Property;
 import com.mycompany.webtechnikonproject.model.PropertyOwner;
-import com.mycompany.webtechnikonproject.model.Repair;
 import com.mycompany.webtechnikonproject.repository.PropertyOwnerRepository;
 import com.mycompany.webtechnikonproject.repository.PropertyRepository;
 import com.mycompany.webtechnikonproject.repository.RepairRepository;
